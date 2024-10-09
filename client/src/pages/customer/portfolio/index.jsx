@@ -109,7 +109,7 @@ const fieldData = [
       <div className="h-50">
         <div className="my-3">
             <div className="bg-dark py-3 px-4 rounded d-flex justify-content-between">
-                <h5 className="text-white mb-0 fw-bold">Investments</h5>
+                <h5 className="text-white mb-0 fw-bold text-uppercase">Investments</h5>
             </div>
         </div>
         <div className="bg-white h-50">

@@ -26,7 +26,7 @@ const Header= ({ role }) => {
 
   return (<>
    {(curPage.toLocaleLowerCase()!=="personal details"&&curPage.toLocaleLowerCase()!=="profile")&&<div id={role} className="d-flex  admin-header justify-content-between align-items-center">
-      <h5 className="text-capitalize m-0 fw-semibold">{curPage}</h5>
+      <h5 className="text-uppercase m-0 fw-semibold ">{curPage}</h5>
       <div className="right-profile  d-flex gap-4">
         <div><Button/></div>
       </div>
