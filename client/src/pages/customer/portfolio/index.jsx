@@ -32,10 +32,10 @@ const Portfolio = () => {
   
 const fieldData = [
    {name:" TOTAL INVESTMENTS",qty:totalInvestments,icon:invest},
-   {name:"  CURRENT VALUATION",qty:currencyFormatter(TotalCurrenctValuation),icon:valuation},
    {name:"   AMOUNT INVESTED (INCL. FEES)",qty:currencyFormatter(totalInvested),icon:amount},
-   {name:"  NET MOIC",qty:moic||0,icon:moicp},
+   {name:"  CURRENT VALUATION",qty:currencyFormatter(TotalCurrenctValuation),icon:valuation},
    {name:" NET PROFIT (LOSS)",qty:currencyFormatter(profit),icon:pro},
+   {name:"  NET MOIC",qty:moic||0,icon:moicp},
    {name:"  NET IRR",qty:irrVal,icon:irr},
   ];
   useEffect(() => {
@@ -91,7 +91,7 @@ const fieldData = [
             <div className="row row-cols-3 pe-0">
               {fieldData?.map((val, index) => (
                 <div key={index} className='px-0'>
-                  <div className={`d-flex p-2 border border-1 mb-3 ${index%3!==0&&"mx-3"} rounded-1 border-dark bg-white  justify-content-between`}>
+                  <div className={`d-flex p-2 border border-1 mb-3 ${index%3!==0&&"mx-3 me-0"} rounded-1 border-dark bg-white  justify-content-between`}>
                     <div className='d-flex flex-column gap-2 justify-content-between'>
                         <span className='text-muted small'>{val?.name}</span>
                         <span className='fw-bold '>{val?.qty}</span>
