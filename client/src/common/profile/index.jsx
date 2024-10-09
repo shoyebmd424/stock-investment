@@ -11,18 +11,33 @@ const Profile = () => {
   const [member,setMember]=useState(null);
   const [isEdit,setIsEdit]=useState(false);
   const [preview,setpeview]=useState(null);
+  const [file,setFile]=useState(null);
+  const [loading,setLoading]=useState(false);
 
   const handleChange=(e)=>{
     const {name,value,files}=e.target;
     try {
         if(files){
             setpeview(files[0]);
-        }
+        }else{
         setMember({...member,[name]:files?files[0]:value});
+        }
     } catch (error) {
         console.log(error);
     }
-   
+  }
+
+  const handleImage=(e)=>{
+    try {
+      const {files}=e.target;
+      if(files){
+        setpeview(files[0]);
+        setFile(files[0]);
+      }
+    } catch (error) {
+      console.log(error)
+      setFile(null);
+    }
   }
 
 
@@ -39,21 +54,21 @@ const Profile = () => {
 
 
 
-  const handleSubmit=(e)=>{
+  const handleSubmit=async(e)=>{
     e.preventDefault();
+    setLoading(true);
     const details={personal:{...member},account:{...member}};
     const formData=new FormData();
     formData.append('account',JSON.stringify(details.account));
     formData.append('personal',JSON.stringify(details.personal));
-    if(member.profile){
-        formData.append("profile",member.profile);
+    if(file){
+        formData.append("profile",file);
     }
     if(id){
-      updateAuthService(id,formData);
-      setIsEdit(false);
+    await updateAuthService(id,formData);
       window.location.reload();
-      return;
     }
+    setLoading(false);
   }
 
   return (
@@ -82,7 +97,7 @@ const Profile = () => {
                     <div className="position-relative " style={{width:"150px",aspectRatio:"1/1"}}>
                     <img src={(preview&&URL.createObjectURL(preview))||Server+member?.profile}   className="h-100 bg-light rounded-circle  w-100" alt="" />
                   {isEdit&&  <label htmlFor="profile" className="position-absolute cursor-pointer" style={{bottom:"25%",right:"-10%"}}>
-                        <input onChange={handleChange} type="file" name="profile" className="position-absolute" style={{opacity:0}} />
+                        <input onChange={handleImage} type="file" name="profile" className="position-absolute" style={{opacity:0}} />
                        <div  className="bg-very-light-gray p-2 rounded-circle cursor-pointer  " ><FaPen size={25}/></div> 
                     </label>}
                 </div>
@@ -120,7 +135,7 @@ const Profile = () => {
 
         {(isEdit || !id) && (
           <div className="text-center">
-            <button className="btn-red rounded-5 px-4 my-3">Save</button>
+            <button disabled={loading} style={{cursor:loading?'not-allowed':'pointer'}} className="btn-red rounded-5 px-4 my-3">{loading?'wait....':'Save'}</button>
           </div>
         )}
       </form>

@@ -103,13 +103,14 @@ export  const updateAuthService=async(id,val)=>{
         const {data}=await updateAuthRepo(id,val);
         if(data?.message){
             showToast("error",data?.message);
-            return data;
+            return;
         }
         showToast("success",data);
         return data;
     } catch (error) {
+        console.log(error)
         showToast("error",error?.response?.data?.message);
-        return error?.response?.data;
+        return ;
     }
 }
 

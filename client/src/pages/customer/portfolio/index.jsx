@@ -172,6 +172,9 @@ const Company = ({ companyId,list, index, deals,userId }) => {
     };
     getCompanyById();
   }, [companyId]);
+
+
+
   return (
     <>
       <tr key={index} className="p-3 ">
