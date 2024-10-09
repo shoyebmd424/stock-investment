@@ -1,0 +1,18 @@
+@import "../../../styles/variable";
+.customer-layout{
+    // gap: 15px;
+    display: flex;
+    .main-part{
+        flex: 2;
+        padding:50px;
+        box-shadow: 0px 0px 20px $light-color inset;
+        height: 100vh;
+        overflow-y: scroll;
+
+        // .customer-pages{
+        //     height: 85vh;
+        //     overflow-y: scroll;
+        //     scrollbar-width: none;
+        // }
+    }
+}

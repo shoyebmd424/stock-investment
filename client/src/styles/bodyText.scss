@@ -1,0 +1,23 @@
+@import "./variable";
+
+p{
+    font-size: 14px;
+    letter-spacing: .5px !important;
+}
+.side {
+    font-size: 13px;
+    line-height: 13px;
+    letter-spacing: 2px;
+}
+
+.text-light-gray{
+    color: $light-color !important;
+}
+.text-gray{
+    color:  $color-gray !important;
+}
+
+.text-red{
+    color: $light-orange;
+}
+

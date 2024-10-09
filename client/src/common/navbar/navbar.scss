@@ -1,0 +1,59 @@
+@import "../../styles/variable";
+
+.h-navbar {
+    width: 100%;
+    margin-bottom: auto;
+    color: white;
+    border-bottom: 2px solid white;
+
+    .logo {
+        height: 70px;
+    }
+
+    ul {
+        display: flex;
+        justify-content: space-between;
+        list-style: none;
+    }
+
+    .list {
+        // gap: 15px;
+
+        a {
+            color: $light-color;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 15px 0px;
+            margin: auto 0;
+            text-transform: uppercase;
+
+            &.active{
+                color: $light-orange;
+                li{
+                    border: 2px solid $light-orange;
+                    span{
+                        background: #000;
+                        transform: scale(1.01);
+                    }
+                }
+            }
+            li {
+                position: relative;
+                padding: 5px;
+                border-radius: 5px;
+                width: 160px;
+                height: 40px;
+
+                span {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    position: absolute;
+                    inset: 0;
+                }
+            }
+        }
+    }
+
+}

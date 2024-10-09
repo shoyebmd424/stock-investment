@@ -1,0 +1,13 @@
+@import "../../styles/variable";
+.hair-loader{
+    position: absolute !important;
+    height: 100vh;
+    inset: 0 !important;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.hair-loader .text-primary{
+    color:$dark-color  !important;
+}

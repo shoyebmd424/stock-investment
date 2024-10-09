@@ -1,0 +1,1 @@
+@font-face{font-family:graphit;src:url(../../public/asset/graphit-regular.woff)}@font-face{font-family:melody;src:url(../../public/asset/BLMelody-Light.woff2)}.customer-layout{display:flex}.customer-layout .main-part{flex:2;padding:50px;box-shadow:0 0 20px #757679 inset;height:100vh;overflow-y:scroll}

@@ -1,0 +1,13 @@
+@import '../../styles/variable';
+
+.create-mamber{
+    padding: 20px;
+    border: 1px solid $border-line;
+
+}
+
+.table>:not(caption)>*>*{
+color: gray;
+font-size: 14px;
+font-weight: 600;
+}

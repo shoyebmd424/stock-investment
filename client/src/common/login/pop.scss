@@ -1,0 +1,31 @@
+@import '../../styles/variable';
+.login-pop{
+    background: $dark-color;
+    .login{
+        height: 90vh;
+        display: flex;
+        
+    }
+    .login-body{
+        border-radius: 8px;
+        padding: 20px;
+        opacity: 100%;
+        z-index: 300;
+        color: white;
+        margin: auto;
+        // border: 1px solid $border-line;
+        .field{
+            label{
+                margin-left: 15px;
+            }
+            .input-field{
+                // border: 2px solid $dark-orange;
+                border: none;
+                background: #000;
+                border-radius: 10px;
+                outline: none;
+                color: white;
+            }
+        }
+    }
+}

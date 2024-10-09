@@ -1,0 +1,54 @@
+@import "./variable";
+
+.field{
+    label{
+        font-size: 18px;
+    }
+.input-field{
+    background: $input;
+    padding:  15px 20px;
+    width: 100%;
+    border-radius: 25px;
+    border: none;
+}
+
+}
+
+
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+    background: white !important;
+  }
+  
+ 
+
+table tr>th{
+    border: none;
+    font-size: 13px;
+    color: $color-gray;
+}
+table tr td{
+      padding: 10px  0;
+    background-color: #fff;
+    color: $dark-color;
+    font-weight: 700;
+    border-bottom: 2px solid $dark-orange;
+    border-top: 2px solid $dark-orange;
+  }
+  
+  table tr>:first-child {
+    background-color: #fff; 
+    border: 1px solid $dark-orange; 
+    border-radius:50% 0 0 50%;
+    border-right: 0;
+  }
+  
+  table tr>:last-child{
+    border-radius:0 50% 50% 0;
+    border: 1px solid $dark-orange;
+    border-left: 0;
+  }
+ 

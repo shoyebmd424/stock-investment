@@ -1,0 +1,82 @@
+@import "../../styles/variable";
+.register{
+    display: grid;
+    grid-template-columns: 1.6fr 2fr;
+    height: 100vh;
+    width: 100vw;
+    z-index: 1;
+    @media (max-width:1200px) {
+        grid-template-columns: 0.8fr 2fr;
+    }
+    @media (max-width:700px) {
+        display: block;
+    }
+    .register-left{
+        height: inherit;
+        @media (max-width:700px) {
+            display: none;
+        }
+    }
+    .register-right{
+        background: $dark-color;
+        color: white;
+        padding: 20px;
+        overflow-y: scroll;
+        scrollbar-width: none;
+        .logo{
+            width: 200px;
+        }
+        .pres{
+            letter-spacing: 0.25em;
+            margin-top:-1rem ;
+            margin-left:10px ;
+        }
+        .progress-comp{
+            ul{
+                list-style: none;
+                display: flex;
+                li{
+                    width: 100%;
+                    text-align: center;
+                    display: flex;
+                    flex-direction: column;
+                    color: $very-light-color;
+                    &.active{
+                        color: $dark-orange;
+                       .node, .empty{
+                            background: $dark-orange;
+                            transition: background 500ms;
+                        }
+                    }
+                    .node{
+                        height: 10px;
+                        aspect-ratio: 1/1;
+                        background:  $color-gray;
+                        border-radius: 50%;
+                    }
+                }
+                .empty{
+                    background: $color-gray;
+                    height: 1.5px;
+                }
+            }
+        }
+        // comp
+        .bg-border{
+            background: $border-line;
+        }
+        .field{
+           .input-field, input{
+                background:$border-line;
+                color: white;
+            }
+            .eye{
+                position: absolute;
+                right: 20px;
+                bottom: 18px;
+                cursor: pointer;
+
+            }
+        }
+    }
+}

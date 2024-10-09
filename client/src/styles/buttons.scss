@@ -1,0 +1,36 @@
+@import "./variable";
+
+.btn-red{
+    color: $white-color;
+    background: $light-orange;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-size: 16px;
+    border: none;
+    &:hover{
+        background: $dark-orange;
+    }
+}
+.btn-gray{
+    color: $white-color;
+    background:$light-color;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-size: 16px;
+    border: none;
+    &:hover{
+        background: $light-color;
+    }
+}
+
+.btn-dark{
+    color: $white-color;
+    background:$dark-color;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-size: 16px;
+    border: none;
+    &:hover{
+        background: $light-color;
+    }
+}

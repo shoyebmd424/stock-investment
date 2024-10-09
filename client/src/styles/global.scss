@@ -1,0 +1,42 @@
+@import "./variable";
+body{
+    background: $very-light-color !important;
+}
+
+h1,h2,h3,h4,h5,label,input,button{
+    font-family:graphit !important;
+}
+p,div,li,small{
+    font-family: melody !important;
+}
+.bg-very-light-gray{
+    background: $very-light-color !important;
+}
+.bg-green{
+    background:$green;
+}
+
+.inset-0{
+    inset: 0;
+}
+
+.bg-pink{
+    background: $yellowpink;
+}
+.cursor-pointer{
+    cursor: pointer;
+}
+
+.bg-very-light-red{
+    background: $very-light-red;
+}
+.bg-black{
+    background: $dark-color;
+}
+.text-very-light-gray{
+    color: $very-light-color ;
+}
+.bg-dark-orange{
+    background: $dark-orange;
+}
+

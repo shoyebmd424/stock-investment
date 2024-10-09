@@ -1,0 +1,21 @@
+@import "../../styles/variables";
+.select-input-field{
+    .options-area{
+        height: 200px;
+        overflow-y: scroll;
+        ul li:hover{
+            background: $border-line;
+        }
+    }
+    .dropdown{
+        position: absolute;
+        right: 15px;
+        top: 8px;
+        width: fit-content;
+        height: fit-content;
+        .rotate{
+            transform: rotate(180deg);
+            transition: all 200ms;
+        }
+    }
+}

@@ -1,0 +1,27 @@
+@import "../../../../styles/variable";
+
+.pop{
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    inset: 0;;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: #b1aaaacd;
+    .pop-body{
+        border-radius: 8px;
+        padding: 20px;
+        background: white;
+        opacity: 100%;
+        position: relative;
+        z-index: 300;
+        border: 1px solid $border-line;
+        .field{
+            label{
+                margin-left: 15px;
+            }
+        }
+    }
+}
