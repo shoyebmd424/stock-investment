@@ -174,7 +174,7 @@ const handleChange=async(e)=>{
       <td>{investDate}</td>
       <td> {currencyFormatter( investor?.invest,deal?.currency)}</td>
       <td>{profit}</td>
-      <td> {moic}</td>
+      <td> {moic&&moic?.toString()?.substring(0,4)}</td>
       <td>
         <IrrVal
           initialInvestment={investor?.amount}

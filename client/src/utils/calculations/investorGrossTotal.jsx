@@ -24,7 +24,7 @@ export const netMoic =async (
   const moic =
     (await netProfit(paid, shareholding, currentValuation, currency, carried) + paid) /
     paid;
-    return moic.toFixed(2);
+    return moic;
 };
 
 

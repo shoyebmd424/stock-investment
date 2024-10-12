@@ -281,7 +281,7 @@ const AddDealPop = ({ setIsNew, companyId,reFetch }) => {
                     <label htmlFor="">Net MOIC</label>
                     <input
                       type="text"
-                      value={field?.moic}
+                      value={ field?.moic&&field?.moic?.toString()?.substring(0,4)}
                       className="input-field bg-white border border-2"
                       disabled
                     />

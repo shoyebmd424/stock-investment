@@ -46,7 +46,7 @@ useEffect(() => {
     <>
       <td>{currencyFormatter(profit)}</td>
       <td>{sector}</td>
-      <td>{moic}</td>
+      <td>{moic&&moic?.toString()?.substring(0,4)}</td>
     </>
   );
 };

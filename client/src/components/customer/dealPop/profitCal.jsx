@@ -44,7 +44,7 @@ const NetProfit = ({ deal, sector, currentValuation, userId }) => {
     <>
       <td>{profit}</td>
       <td>{sector}</td>
-      <td>{moic}</td>
+      <td>{moic&&moic?.toString()?.substring(0,4)}</td>
     </>
   );
 };
