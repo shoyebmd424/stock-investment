@@ -8,7 +8,7 @@ import pro from "../../../assets/all-img/increase.png"
 import irr from "../../../assets/all-img/return-on-investment.png"
 import DealListpop from '../../../components/customer/dealPop'
 import {  getAllCompanyService, getByIdCompanyService } from '../../../service/company/companyService'
-import { getAllDealByUserAndCompanyService } from '../../../service/deal/dealService'
+import { getAllDealByUserAndCompanyService, getByCompanyIdDealService } from '../../../service/deal/dealService'
 import { Server } from '../../../service/axios'
 import { getAuth } from '../../../utils/authenticationHelper'
 import { currencyFormatter } from '../../../utils/formater/dateTimeFormater'
@@ -33,7 +33,7 @@ const Portfolio = () => {
 const fieldData = [
    {name:" TOTAL INVESTMENTS",qty:totalInvestments,icon:invest},
    {name:"   AMOUNT INVESTED (INCL. FEES)",qty:currencyFormatter(totalInvested),icon:amount},
-   {name:"  CURRENT VALUATION",qty:currencyFormatter(TotalCurrenctValuation),icon:valuation},
+   {name:"CURRENT VALUE OF INVESTMENT",qty:currencyFormatter(TotalCurrenctValuation),icon:valuation},
    {name:" NET PROFIT (LOSS)",qty:currencyFormatter(profit),icon:pro},
    {name:"  NET MOIC",qty:moic&&moic?.toString()?.substring(0,4)||0,icon:moicp},
    {name:"  NET IRR",qty:irrVal,icon:irr},
@@ -49,15 +49,15 @@ const fieldData = [
         for (const item of it?.deals) {
           const rat=await exchange(item?.currency)
           setRate(rat);
+          const company=await getByIdCompanyService(item?.companyId)
           const investor = item?.investors?.find(v => v.investerId === userId);
           if (investor) {
             total+=1;
           const paid = parseFloat(investor?.amount || 0) + parseFloat(investor?.fees || 0);
           const carried = parseFloat(investor?.carried || 0);
           const shareholding = parseFloat(investor?.shareholding || 0);
-          console.log(paid)
-          const profitResult = await netProfit(paid, shareholding, parseInt(item?.currentValue||0), item.currency, carried/100);
-          const moicResult = await netMoic(paid, shareholding, parseInt(item?.currentValue||0), item.currency, carried/100);
+          const profitResult = await netProfit(paid, shareholding, parseInt(company?.dealSummary?.currentValuation||0), item.currency, carried/100);
+          const moicResult = await netMoic(paid, shareholding, parseInt(company?.dealSummary?.currentValuation||0), item.currency, carried/100);
           totalProfit += profitResult;
           totalMoic += moicResult;
           pay+=paid;

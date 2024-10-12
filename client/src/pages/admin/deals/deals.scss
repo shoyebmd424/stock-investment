@@ -1,4 +1,5 @@
 @import "../../../styles/variable";
+.deals{
 table {
     width: 100%;
     border-collapse: separate;
@@ -14,20 +15,22 @@ table tr>th{
 table tr td{
       padding: 10px  0;
     background-color: #fff;
-    border-bottom: 2px solid $dark-orange;
-    border-top: 2px solid $dark-orange;
+    border: none !important;
+    border-bottom: 2px solid $border-line !important;
+    // border-top: 2px solid $dark-orange;
   }
   
   table tr>:first-child {
-    background-color: #fff; 
-    border: 1px solid $dark-orange; 
-    border-radius:50% 0 0 50%;
+    // background-color: #fff; 
+    // border: 2px solid $dark-orange; 
+    border-radius:0 !important;
     border-right: 0;
   }
   
   table tr>:last-child{
-    border-radius:0 50% 50% 0;
-    border: 1px solid $dark-orange;
+    border-radius:0 !important;
+    // border: 2px solid $dark-orange;
     border-left: 0;
   }
  
+}

@@ -7,7 +7,6 @@ const NetProfit = ({ deals, sector, currentValuation, userId }) => {
   const [profit, setProfit] = useState(0);
 const [moic, setMoic] = useState(0);
 const [totalIvestMents,setTotalInvestMent]=useState(0);
-
 const getAllProfit = async () => {
   const data = await getAllDealByInvestorService(userId);
   const totalDeals = data.reduce((sum, item) => {
