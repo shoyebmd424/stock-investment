@@ -9,7 +9,7 @@ export const netProfit = async(
 ) => {
   const rate=await exchange(currency);
   const profit = (shareholding * parseInt(currentValuation||0) * rate/100)-paid ;
-  if (profit > 0) return profit;
+  if (profit < 0) return profit;
   return (profit * (1 - carried));
 };
 
