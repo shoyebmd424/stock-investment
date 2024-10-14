@@ -19,13 +19,13 @@ const userSchema = new mongoose.Schema(
       industry: String,
     },
     investmentInfo: {
-      interestedToInvest: [String], 
-      sectors: [String], 
-      region: [String],
+      interestedToInvest: Array, 
+      sectors: Array, 
+      region: Array,
       investorType: String,
       expertise: String,
       passions: String,
-      anyma: [String],
+      anyma: Array,
     },
     account: {
       email: {

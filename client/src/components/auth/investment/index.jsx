@@ -4,9 +4,9 @@ import aferica from "../../../assets/icons continent/Africa.png"
 import asia from "../../../assets/icons continent/Asia.png"
 import  europe from "../../../assets/icons continent/Europe.png"
 import latin from "../../../assets/icons continent/Latin america.png"
-import map from "../../../assets/icons continent/map (4).png"
+import map from "../../../assets/icons continent/Middle east.png"
 import north from "../../../assets/icons continent/North America.png"
-const Investment = ({ invest, step, setInvestVal }) => {
+const Investment = ({ invest, step, setInvestVal,investVal }) => {
   const [active, setActive] = useState([]);
   const handleChange = (field, value, selectType) => {
     if (selectType) {
@@ -19,7 +19,7 @@ const Investment = ({ invest, step, setInvestVal }) => {
           ...pre,
           [field]: pre[field]?.includes(value)
             ? pre[field].filter((item) => item !== value)
-            : [...(pre[field] || []), value],
+            : [...(pre[field] || []), value,],
         }));
       } else {
         setActive([...active, value]);
@@ -31,10 +31,35 @@ const Investment = ({ invest, step, setInvestVal }) => {
     }
   };
 
+  const handleInput=(field,e,isSingle)=>{
+    const {name,value}=e.target;
+    if(!isSingle){
+      setInvestVal((pre) => ({
+        ...pre,
+        [field]: pre[field].includes('Other') && !pre[field].some(v => Object.keys(v).includes(name))
+          ? [...pre[field], { [name]: value }] 
+          : pre[field].map((v, index) => {
+              const indexToUpdate = pre[field].findIndex(obj => Object.keys(obj).includes(name));
+              if (index === indexToUpdate) {
+                return { ...v, [name]: value }; 
+              }
+              return v; 
+            }),
+      }));
+    }else{
+      setInvestVal((pre) => ({
+        ...pre,
+        [field]: pre[field] ? [...pre[field], value] : [value],
+      }));
+    }
+  }
+
   const fieldChange = (e) => {
     const { name, value } = e.target;
     setInterval((pre) => ({ ...pre, [name]: value }));
   };
+
+  
 
   return (
     <>
@@ -45,8 +70,9 @@ const Investment = ({ invest, step, setInvestVal }) => {
               <div>
                 <h6>{val?.head}</h6>
                 {index != 4 ? (
+                  <>
                   <div
-                    className={`${
+                    className={` ${
                       index === 1 || index === 5
                         ? "d-flex flex-wrap my-3 gap-3"
                         : `row  row-cols-${val?.field !== "investorType" && 2}`
@@ -76,11 +102,13 @@ const Investment = ({ invest, step, setInvestVal }) => {
                               { val?.field==='region'&&i<icons?.length?<img style={{width:"30px"}} src={icons[i]} alt="" /> : active.includes(v) &&  <FaCheck />}
                             </div>
                           )}
-                          <span>{v}</span>
+                          <span >{v}</span>
                         </div>
                       </div>
                     ))}
                   </div>
+                {val.field&&investVal[val.field]?.includes('Other')&&  <div className="field mb-3" >   <input type="text" name="OtherValue" onChange={(e)=>handleInput(val?.field,e,val?.isSingle)}  className="input-field" /></div>}
+                  </>
                 ) : (
                   <div className="areas d-flex flex-column gap-3">
                     <div className="field">

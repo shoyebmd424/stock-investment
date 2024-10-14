@@ -10,7 +10,8 @@ const Header= ({ role }) => {
   // personal-details
   // new-company
   // personal-add
-  console.log(curPage.toLowerCase())
+  // console.log(curPage.toLowerCase())
+  
   const Button=()=>{
    
     if(curPage.toLocaleLowerCase()==="member"){
