@@ -1,5 +1,6 @@
 import React from "react";
 import img from "../../../assets/all-img/logoOneLeter.png";
+import {Link} from "react-router-dom";
 
 const Success = () => {
   return (
@@ -9,12 +10,13 @@ const Success = () => {
       </div>
       <div className="d-flex col-8 mx-auto justify-content-center align-items-center my-5 flex-column gap-3">
         <h3 className="text-center">
-          We’ve received your registration request
+        Thank you for completing your onboarding process! 
         </h3>
         <p className="fs-5 text-light text-center">
-          Anyma Capital team will be in touch with you shortly by e-mail to
-          grant you access to your account
+        To proceed, please click the button below to access the login page  
+         and enter the investor dashboard
         </p>
+        <p> <Link to="/login" className="text-red"> Login Here</Link></p> 
       </div>
     </div>
   );

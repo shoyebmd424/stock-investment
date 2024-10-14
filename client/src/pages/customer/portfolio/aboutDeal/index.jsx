@@ -37,7 +37,7 @@ const AboutDeal = () => {
                           </div>
                       </div>
   
-                      <div className="about col-md-8 d-flex bg-dark text-white my-3 py-2 border border-2 rounded px-3 justify-content-between align-items-center">
+                      <div className="about w-100 d-flex me-4 bg-dark text-white my-3 py-2 border border-2 rounded px-3 justify-content-between align-items-center">
                           <div className='fw-semibold text-uppercase'>ABOUT {company?.name}</div>
                       </div>
                       <div className=' '>
@@ -51,7 +51,7 @@ const AboutDeal = () => {
                       </div>
                   </div>
               </div>
-              <div className="col-3 h-100 d-flex flex-column">
+              <div className="col-3 h-100 pe-0 d-flex flex-column">
                   <div className="deal d-flex flex-column h-100">
                   <div className="about d-flex bg-black  text-white mb-3 py-2 border border-2 rounded px-2 justify-content-between align-items-center">
                           <div className='fw-semibold'>DEAL SUMMARY</div>
@@ -67,23 +67,23 @@ const AboutDeal = () => {
               </div>
           </div>
           <div className="row pb-3 pe-0">
-              <div className="col-md-6 ">
+              <div className="col-md-6 ps-0 ">
               <div className=" d-flex bg-black text-white my-3 py-2 border border-2 rounded px-3 justify-content-between align-items-center">
                           <div className='fw-semibold'>Latest News</div>
                       </div>
                       <div className="details bg-white rounded d-flex flex-column gap-3 p-3">
                         {company?.news&&company?.news.map((val,i)=>(
-                        <div className='d-flex  flex-column gap-2' key={i}>  <div className="d-flex justify-content-between"><a href={val?.link} className='text-dark' target="_blank" rel="noopener noreferrer"> {val?.name}</a></div>
+                        <div className='d-flex  flex-column gap-2' key={i}>  <div className="d-flex justify-content-between"><a href={val?.link} className='text-red' target="_blank" rel="noopener noreferrer"> {val?.name}</a></div>
                        <small className='text-muted tracking-normal'>{formatTimeFromNow(val?.date)}</small>
                         </div>
                         ))}
   
                       </div>
               </div>
-              <div className="col-md-6 row pe-0">
-                  <div className="col-6">
+              <div className="col-md-6 m-0 row pe-0">
+                  <div className="col-6 ps-0 ">
                       <div>   <div className=" d-flex bg-black text-white my-3 py-2 border border-2 rounded px-3 justify-content-between align-items-center">
-                          <div className='fw-semibold'>UPDATE</div>
+                          <div className='fw-semibold text-uppercase'>Business Updates                          </div>
                       </div>
                       <div className="details bg-white rounded d-flex flex-column gap-3 py-3 ">
                       {company?.update&&company?.update.map((val,i)=>(

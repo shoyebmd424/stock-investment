@@ -19,9 +19,9 @@ const Login = () => {
         return;
       }
       if(data&&data?.user?.account?.role==="ADMIN"){
-        navigate("/admin");
+        navigate("/admin/member");
       }else{
-        navigate("/customer");
+        navigate("/customer/overview");
       }
     }
   return (

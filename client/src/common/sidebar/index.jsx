@@ -91,11 +91,11 @@ const Sidebar = ({ sidebarData }) => {
                         val?.path !== path ? "gray" : ""
                       }  position-relative`}
                     >
-                      {val?.name}{" "}
+                      {val?.name}
                       {val?.soon && (
                         <span
-                          style={{ fontSize: "11px" }}
-                          className="bg-secondary ms-1 rounded-5 text-white px-2 position-absolute py-1"
+                          style={{ fontSize: "9px ",padding:"3px 0" }}
+                          className="bg-secondary ms-1 my-auto rounded-5 text-white px-2 position-absolute"
                         >
                           SOON
                         </span>
