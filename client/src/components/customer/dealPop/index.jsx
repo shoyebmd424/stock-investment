@@ -7,6 +7,7 @@ import { Server } from "../../../service/axios";
 import { currencyFormatter } from "../../../utils/formater/dateTimeFormater";
 import { calculateIrrSingleInvestment } from "../../../utils/calculations/calculateIrrSingleInvestment";
 import NetProfit from "./profitCal";
+import { getWeight } from "../../../utils/calculations/weightCalculate";
 
 const DealListpop = ({ setIsNew,company, deals,userId }) => {
   const navigate=useNavigate();
@@ -50,7 +51,7 @@ const DealListpop = ({ setIsNew,company, deals,userId }) => {
                 <td> {currencyFormatter(val?.investors&&val?.investors?.find(v=>v.investerId===user?._id)?.amount||val?.investors&&val?.investors?.find(v=>v.investerId===userId)?.amount)}</td>
                 <NetProfit deal={val} currentValuation={company?.dealSummary?.currentValuation} userId={userId||user?._id} sector={company?.dealSummary?.sector}/>
                 <td><IrrVal initialInvestment={val?.investors&&val?.investors?.find(v=>v.investerId===(userId||user?._id))?.amount} investmentDate={val?.investedDate}  currentValue={val?.currentValue}/></td>
-                <td>{val?.investors&&val?.investors?.find(v=>v.investerId===userId)?.shareholding}%</td>
+                <td> <GetWeight userId={userId} amount={val?.investors&&val?.investors?.find(v=>v.investerId===userId)?.amount} /></td>
               </tr>
             ))}
           </tbody>
@@ -64,6 +65,19 @@ const DealListpop = ({ setIsNew,company, deals,userId }) => {
 
 export default DealListpop;
 
+
+const GetWeight=({userId,amount})=>{
+  const [weight,setWeight]=useState(0);
+  useEffect(()=>{
+    const handle=async()=>{
+      const wt=await getWeight(userId,parseFloat(amount||0));
+      console.log(userId,amount,wt);
+      setWeight(wt);
+    }
+    handle();
+  },[userId,amount])
+  return<>{weight}% </>
+}
 
 const IrrVal = ({ initialInvestment, investmentDate, currentValue }) => {
   // console.log(initialInvestment, investmentDate, currentValue);

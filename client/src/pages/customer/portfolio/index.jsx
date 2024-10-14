@@ -113,7 +113,7 @@ const fieldData = [
             </div>
         </div>
         <div className="bg-white h-50">
-        <table>
+        <table className='px-3'>
           <thead className="thead-dark">
             <tr>
              

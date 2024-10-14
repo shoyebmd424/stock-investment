@@ -48,7 +48,7 @@ const Companies = () => {
         {companies&&companies?.map((val, key) => (
           <tr key={key} className=' '>
             <td >
-           <div style={{ width: "60px", aspectRatio: "1/1",marginLeft:"20px" }} >   <img className="w-100 h-100 rounded-circle" src={ Server+val?.profile} alt="" /></div>
+           <div style={{ width: "60px", aspectRatio: "1/1",marginLeft:"10px" }} >   <img className="w-100 h-100 rounded-circle" src={ Server+val?.profile} alt="" /></div>
             </td>
             <td className='text-uppercase '>{val?.name}</td>
             <Invest id={val?._id} />
@@ -72,7 +72,7 @@ const Companies = () => {
               </button>
               </div>
             </td>
-            <td style={{ width: "50px", aspectRatio: "1/1" }}>
+            <td style={{ width: "65px", aspectRatio: "1/1" }}>
             
             </td>
           </tr>

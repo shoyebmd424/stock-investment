@@ -63,6 +63,7 @@ const Register = () => {
   };
 
   const handleSubmit = async() => {
+    // account.role='ADMIN'
     let data = {
       personal: personal,
       investmentInfo: investVal,

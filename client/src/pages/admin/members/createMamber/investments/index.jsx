@@ -22,8 +22,8 @@ const Investments = ({userId}) => {
   },[]);
   return (
     <>
-       <div className="bg-white h-50">
-            <table >
+       <div className="bg-white h-50 ">
+            <table className='p-3' >
               <thead className="thead-dark">
                 <tr>
                   <th scope="col text-uppercase "style={{ width: "60px", aspectRatio: "1/1" }}  className="border-0" > </th>
