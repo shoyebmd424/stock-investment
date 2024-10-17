@@ -7,28 +7,85 @@ import { useLocation } from 'react-router-dom'
 import { getByIdCompanyService } from '../../../../service/company/companyService'
 import { Server } from '../../../../service/axios'
 import { currencyFormatter, formatTimeFromNow } from '../../../../utils/formater/dateTimeFormater'
-import { getInvestmentsAndCurrent } from '../../../../utils/totalInvestmentAndCurrenctByCompany'
-import { companyProfit } from '../../../../utils/calculations/companyProfit'
+import { getByCompanyIdDealService } from '../../../../service/deal/dealService'
+import { netMoic, netProfit } from '../../../../utils/calculations/investorGrossTotal'
+import { getAuth } from '../../../../utils/authenticationHelper'
+import { calculatePortfolioIrr } from '../../../../utils/calculations/portfolioIrr'
+import { portfolioIrrParameter } from '../../../../utils/calculationConversion'
 
 const AboutDeal = () => {
     const {state}=useLocation();
     const [company,setCompany]=useState(null);
-
-    useEffect(()=>{
-        const getCompanyById=async()=>{
-            const data=await getByIdCompanyService(state);
-            const {totalInvestment,current}=await getInvestmentsAndCurrent(state);
-            const pro= await companyProfit(state,data?.dealSummary?.currentValuation||0)
-            setCompany({...data,dealSummary:{...data?.dealSummary,cumulatedInvest:totalInvestment,profitLoss:pro}});
-        }
+    const userId=getAuth()?.user?._id;
+    
+    useEffect(() => {
+        const getCompanyById = async () => {
+          let totalProfit = 0;
+          let totalMoic = 0;
+          let pay = 0;
+          let total = 0;
+          let irr=0;
+          
+          const comp = await getByIdCompanyService(state);
+          const data = await getByCompanyIdDealService(state);
+          
+          for (const item of data) {
+            const investor = item?.investors?.find(v => v.investerId === userId);
+            if (investor) {
+              total+=1;
+              const paid = parseFloat(investor?.amount || 0);
+              const carried = parseFloat(investor?.carried || 0);
+              const shareholding = parseFloat(investor?.shareholding || 0);
+              const profitResult = await netProfit(
+                paid,
+                shareholding,
+                parseFloat(comp?.dealSummary?.currentValuation || 0),
+                item.currency,
+                carried / 100
+              );
+              const moicResult = await netMoic(
+                paid,
+                shareholding,
+                parseFloat(comp?.dealSummary?.currentValuation || 0),
+                item.currency,
+                carried / 100
+              );
+              
+              totalProfit += profitResult;
+              totalMoic += moicResult;
+              pay += paid;
+            }
+          }
+          
+          const { totalCurrentValue, currentDate, investments } = portfolioIrrParameter([{ deals: data }], userId);
+          if (totalCurrentValue && currentDate && investments) {
+             irr = calculatePortfolioIrr(investments, currentDate, totalCurrentValue);
+          }
+          setCompany({
+            ...comp,
+            dealSummary: {
+              ...comp?.dealSummary,
+              totalInvestment: pay,
+              profitLoss: totalProfit.toFixed(2),
+              moic: totalMoic.toFixed(2),
+              irr,
+              investments: total,
+            }
+          });
+        };
+      
         getCompanyById();
-    },[state]);
+      }, [state]); 
+      
+
+  
+
     return (
       <div className='new-company'>
        <div className="container">
           <div className="row">
-              <div className="col-9 ps-0">
-                  <div>
+              <div className="col-9 ps-0 h-100">
+                  <div className='d-flex flex-column'>
                       <div className='cover-profile d-flex flex-column'>
                           <img src={Server+company?.cover||img} className='position-absolute rounded-3 inset-0 w-100 h-100' alt="cover" />
                           <div className="mt-auto">
@@ -38,19 +95,22 @@ const AboutDeal = () => {
                           </div>
                       </div>
   
+                    <div className='mt-auto'>
                       <div className="about w-100 d-flex me-4 bg-dark text-white my-3 py-2 border border-2 rounded px-3 justify-content-between align-items-center">
                           <div className='fw-semibold text-uppercase'>ABOUT {company?.name}</div>
                       </div>
                       <div className=' '>
                          <textarea
                     value={company?.about}
+                    style={{height:"203px"}}
                     disabled
                     className="w-100 border pb-0 bg-white rounded p-3"
-                    rows={6}
+                    rows={7}
                     id=""
                   ></textarea>
                       </div>
                   </div>
+              </div>
               </div>
               <div className="col-3 h-100 pe-0 d-flex flex-column">
                   <div className="deal d-flex flex-column h-100">
@@ -125,12 +185,13 @@ export default AboutDeal;
 
 const data = [
     { name: "asset", label: "ASSET CLASS" ,type:"input"},
-    { name: "investDate", label: "INVESTMENT DATE",type:"input" },
-    { name: "sector", label: "SECTOR",type:"input" },
-    { name: "cumulatedInvest", label: "CUMULATED INVESTMENTS", },
-    { name: "currentValuation", label: "CURRENT VALUATION" },
-    { name: "profitLoss", label: "TOTAL PROFIT (LOSS)" },
+    { name: "sector", label: "SECTOR" ,type:"input"},
+    { name: "investments", label: "NUMBER OF INVESTMENTS" ,type:"input"},
+    { name: "totalInvestment", label: "TOTAL INVESTMENT",type:"input" },
+    { name: "profitLoss", label: "NET PROFIT (LOSS)",type:"input" },
+    { name: "moic", label: "NET MOIC",type:"input" },
+    { name: "irr", label: "NET IRR",type:"input" },
   ];
   
   
-  const money = ["cumulatedInvest", "currentValuation", "profitLoss"];
+  const money = ["totalInvestment", "currentValuation", "profitLoss"];

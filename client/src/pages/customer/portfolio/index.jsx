@@ -160,7 +160,7 @@ const Company = ({ companyId,list, index, deals,userId }) => {
       setTotalInvestMent(() => {
         const totalDeals = deals.reduce((sum, item) => {
           const investor=item?.investors?.find(v=>v.investerId===userId);
-          return sum + ( parseInt(investor?.amount || 0));
+          return sum + ( parseFloat(investor?.amount || 0));
         }, 0);
         return totalDeals;
       });

@@ -1,6 +1,7 @@
 export const portfolioIrrParameter = (data, userId) => {
     try {
-      let totalCurrentValue = 0;
+      let totalCurrentValue = 0;  
+      console.log(data)
       const investments = [];
       data.forEach(item => {
         item?.deals?.forEach(deal => {
