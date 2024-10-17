@@ -61,7 +61,8 @@ try {
     }
     const {data}=await getByIdCompanyRepo(id);
     if(data?.message){
-        return showToast("error",data?.message);
+        // return showToast("error",data?.message);
+        return;
     }
     return data;
 } catch (error) {

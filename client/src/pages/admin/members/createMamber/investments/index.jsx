@@ -9,6 +9,7 @@ import { Server } from '../../../../../service/axios';
 import { IoIosArrowForward } from "react-icons/io";
 import { currencyFormatter } from '../../../../../utils/formater/dateTimeFormater';
 import NetProfit from './values/netProfit';
+import { useNavigate } from 'react-router-dom';
 
 const Investments = ({userId}) => {
   const [company,setCompany]=useState([]);
@@ -60,6 +61,7 @@ const Company = ({ companyId,list, index, deals,userId }) => {
   const [totalIvestMents,setTotalInvestMent]=useState(0);
   const [currentValuation,setCurrentValuation]=useState(0);
   const [irr,setIrr]=useState(0);
+  const navigate=useNavigate();
 
   useEffect(() => {
     const getCompanyById = async () => {
@@ -87,7 +89,7 @@ const Company = ({ companyId,list, index, deals,userId }) => {
     <>
       <tr key={index} className="p-3 ">
         <td>
-        <div className='ms-2 ' style={{width:'50px',aspectRatio:"1/1"}}>  <img className='w-100 h-100 rounded-circle' src={Server+company?.profile||company?.img} alt="" /></div>
+        <div className='ms-2 cursor-pointer' onClick={()=>navigate("/admin/companies/new-company",{state:company?._id})}  style={{width:'50px',aspectRatio:"1/1"}}>  <img className='w-100 h-100 rounded-circle' src={Server+company?.profile||company?.img} alt="" /></div>
         </td>
         <td className='text-capitalize'>{company?.name}</td>
         <td>{company?.dealSummary?.asset}</td>

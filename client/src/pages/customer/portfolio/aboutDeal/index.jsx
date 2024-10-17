@@ -8,6 +8,7 @@ import { getByIdCompanyService } from '../../../../service/company/companyServic
 import { Server } from '../../../../service/axios'
 import { currencyFormatter, formatTimeFromNow } from '../../../../utils/formater/dateTimeFormater'
 import { getInvestmentsAndCurrent } from '../../../../utils/totalInvestmentAndCurrenctByCompany'
+import { companyProfit } from '../../../../utils/calculations/companyProfit'
 
 const AboutDeal = () => {
     const {state}=useLocation();
@@ -16,12 +17,12 @@ const AboutDeal = () => {
     useEffect(()=>{
         const getCompanyById=async()=>{
             const data=await getByIdCompanyService(state);
-            const {totalInvestment,current}=await getInvestmentsAndCurrent(company?._id);
-            setCompany({...data,dealSummary:{...data?.dealSummary,cumulatedInvest:totalInvestment}});
+            const {totalInvestment,current}=await getInvestmentsAndCurrent(state);
+            const pro= await companyProfit(state,data?.dealSummary?.currentValuation||0)
+            setCompany({...data,dealSummary:{...data?.dealSummary,cumulatedInvest:totalInvestment,profitLoss:pro}});
         }
         getCompanyById();
     },[state]);
-
     return (
       <div className='new-company'>
        <div className="container">

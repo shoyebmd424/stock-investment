@@ -43,7 +43,7 @@ const DealListpop = ({ setIsNew,company, deals,userId }) => {
             {deals?.map((val, key) => (
               <tr key={key} className="p-3 " >
                 <td>
-                <div onClick={()=>navigate("about",{state:company?._id})} className=' ms-3' style={{width:'50px',aspectRatio:"1/1"}}>  <img className='w-100 h-100 rounded-circle' src={Server+company?.profile||company?.img} alt="" /></div>
+                <div onClick={()=>navigate("about",{state:company?._id})} className=' ms-3' style={{width:'50px',aspectRatio:"1/1"}}>  <img className='w-100 h-100 rounded-circle cursor-pointer' src={Server+company?.profile||company?.img} alt="" /></div>
                 </td>
                 <td className="text-capitalize">{company?.name}</td>
                 <td>{company?.dealSummary?.asset}</td>

@@ -216,7 +216,7 @@ console.log(deal)
                   </div>
                 </div>
 
-                <div className="about col-md-9 d-flex bg-white my-3 py-1  border border-2 rounded px-3 justify-content-between align-items-center">
+                <div className="about col-md-12 d-flex bg-white my-3 py-1  border border-2 rounded px-3 justify-content-between align-items-center">
                   <h5 className=" my-auto">
                  <span className="fw-semibold">  ABOUT</span> 
                     {isAbout ? (
@@ -256,7 +256,7 @@ console.log(deal)
                 </div>
               </div>
             </div>
-            <div className="col-3 h-inherit d-flex flex-column mb-2">
+            <div className="col-3 pe-0 h-inherit d-flex flex-column mb-2">
               <div className="deal d-flex flex-column h-100">
                 <div className="about d-flex bg-white mb-3 py-1 border border-2 rounded px-2 justify-content-between align-items-center">
                   <div className="fw-semibold">DEAL SUMMARY</div>
@@ -339,12 +339,12 @@ console.log(deal)
                   ))}
               </div>
             </div>
-            <div className="col-md-6  row pe-0">
-              <div className="col-6">
+            <div className="col-md-6 mx-auto row pe-0">
+              <div className="col-6 ps-0">
                 <div>
                   
                   <div className=" position-relative d-flex bg-white my-3 py-2 border border-2 rounded px-3 justify-content-between align-items-center">
-                    <div className="fw-semibold">UPDATE</div>
+                    <div className="fw-semibold text-uppercase">Business Updates</div>
                     <input
                       type="file"
                       name="updatedoc"

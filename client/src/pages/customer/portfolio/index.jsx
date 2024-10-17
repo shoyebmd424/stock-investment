@@ -17,6 +17,7 @@ import { calculatePortfolioIrr } from '../../../utils/calculations/portfolioIrr'
 import NetProfit from '../../admin/members/createMamber/investments/values/netProfit'
 import { exchange, netMoic, netProfit } from '../../../utils/calculations/investorGrossTotal'
 import { IoIosArrowForward } from 'react-icons/io';
+import { useNavigate } from 'react-router-dom';
 
 const Portfolio = () => {
   const [company,setCompany]=useState([]);
@@ -149,7 +150,8 @@ const Company = ({ companyId,list, index, deals,userId }) => {
   const [isDealList, setisDealList] = useState(false);
   const [totalIvestMents,setTotalInvestMent]=useState(0);
   const [irr,setIrr]=useState(0);
-  console.log(companyId)
+  const navigate=useNavigate();
+  // console.log(companyId)
 
   useEffect(() => {
     const getCompanyById = async () => {
@@ -179,7 +181,7 @@ const Company = ({ companyId,list, index, deals,userId }) => {
     <>
       <tr key={index} className="p-3 ">
         <td>
-        <div className=' ms-2' style={{width:'50px',aspectRatio:"1/1"}}>  <img className='w-100 h-100 rounded-circle' src={Server+company?.profile||company?.img} alt="" /></div>
+        <div onClick={()=>navigate("/customer/overview/about",{state:companyId})} className=' ms-2' style={{width:'50px',aspectRatio:"1/1"}}>  <img className='w-100 h-100 cursor-pointer rounded-circle' src={Server+company?.profile||company?.img} alt="" /></div>
         </td>
         <td className='text-capitalize'>{company?.name}</td>
         <td>{company?.dealSummary?.asset}</td>
