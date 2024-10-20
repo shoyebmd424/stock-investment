@@ -36,7 +36,7 @@ const fieldData = [
    {name:"   AMOUNT INVESTED (INCL. FEES)",qty:currencyFormatter(totalInvested),icon:amount},
    {name:"CURRENT VALUE OF INVESTMENT",qty:currencyFormatter(TotalCurrenctValuation),icon:valuation},
    {name:" NET PROFIT (LOSS)",qty:currencyFormatter(profit),icon:pro},
-   {name:"  NET MOIC",qty:moic&&moic?.toString()?.substring(0,4)||0,icon:moicp},
+   {name:"  NET MOIC",qty:moic&&moic?.toString()?.substring(0,4)+'x'||0,icon:moicp},
    {name:"  NET IRR",qty:irrVal,icon:irr},
   ];
   useEffect(() => {
@@ -66,7 +66,7 @@ const fieldData = [
       }
     };
       setprofit(totalProfit);
-      setMoic(totalMoic);
+      setMoic(totalMoic/total);
       setTotalInvested(pay);
       setTotalCurrentValuation(pay+totalProfit)
       setCompany(data)

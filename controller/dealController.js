@@ -30,6 +30,7 @@ exports.deleteDeal=async(req,res)=>{
         if(!deal){
             return res.status(403).json({message:'Deal Id invalid '});
         }
+
         await Deal.findByIdAndDelete(req.params.id);
         res.status(200).json("Deal delete Successfully");
     } catch (error) {

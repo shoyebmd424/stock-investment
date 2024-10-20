@@ -6,6 +6,7 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { getAuth, logout } from "../../utils/authenticationHelper";
 import { Server } from "../../service/axios";
 import { getUserByIdService } from "../../service/auth/AuthService";
+import dummy from "../../assets/profile/user.png";
 
 const Sidebar = ({ sidebarData }) => {
   const userId = getAuth()?.user?._id;
@@ -50,7 +51,7 @@ const Sidebar = ({ sidebarData }) => {
           <div className="d-flex  gap-3 mx-auto">
             <div className="profile-img">
               <img
-                src={Server + user?.personal?.profile}
+                src={user?.personal?.profile?Server + user?.personal?.profile:dummy}
                 className="w-100 h-100 rounded-circle"
                 alt="profile"
               />

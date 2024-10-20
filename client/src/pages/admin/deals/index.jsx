@@ -120,7 +120,7 @@ const Deals = () => {
                   deal={val}
                   investor={v}
                   investDate={val?.investedDate}
-                  currentValuation={val?.currentValue}
+                  companyId={val?.companyId}
                 />
               </tr>
             ))
@@ -163,11 +163,21 @@ const GetCompany = ({ id }) => {
   );
 };
 
-const GetInvest = ({ deal, investor, investDate, currentValuation }) => {
+const GetInvest = ({ deal, investor, investDate, companyId }) => {
   const [profit, setprofit] = useState(0);
   const [moic, setMoic] = useState(0);
   const [shareholding, setShare] = useState(investor?.shareholding);
   const [isEdit, setIsEdit] = useState(false);
+  const [currentValuation,setCurrentValuation]=useState(0);
+
+  useEffect(()=>{
+    const handle=async()=>{
+      const com=await getByIdCompanyService(companyId);
+      setCurrentValuation(parseInt(com?.dealSummary?.currentValuation))
+    }
+    handle();
+  },[companyId])
+
   useEffect(() => {
     const handle = async () => {
       const paid =
@@ -227,7 +237,7 @@ const GetInvest = ({ deal, investor, investDate, currentValuation }) => {
       <td>{investDate}</td>
       <td> {currencyFormatter(investor?.invest, deal?.currency)}</td>
       <td>{profit}</td>
-      <td> {moic && moic?.toString()?.substring(0, 4)}</td>
+      <td> {moic && moic?.toString()?.substring(0, 4)+'x'}</td>
       <td>
         <IrrVal
           initialInvestment={investor?.amount}

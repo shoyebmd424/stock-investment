@@ -4,6 +4,7 @@ const { sendEmail } = require("../middlewares/sendEmail");
 const { message, MemberMessage } = require("../helper/emailMessage");
 const { OtpGenerator } = require("../helper/otpGenrator");
 const bcrypt = require("bcryptjs");
+const Deal = require("../model/deal");
 
 
 const register = async (req, res) => {
@@ -234,7 +235,6 @@ const verifyOTP=async(req,res)=>{
 const setPassword=async(req,res)=>{
   try {
     const {newPassword,cnfPassword}=req.body;
-    console.log(newPassword,cnfPassword)
     if(newPassword!==cnfPassword){
       res.status(403).json({message:"password not matched"});
       return;
@@ -275,18 +275,40 @@ const getAllUserByRoles=async(req,res)=>{
   }
 }
 
-const deleteUser=async(req,res)=>{
+const deleteUser = async (req, res) => {
   try {
-    const users=await User.findByIdAndDelete(req.params.id);
-    if(!users){
-      return res.status(404).json({message:"user id invalid"});
+    const id = req.params.id;
+    const deals = await Deal.find({
+      investors: {
+        $elemMatch: { investerId: id },
+      },
+    });
+
+    const users = await User.findById(id);
+
+    if (!users) {
+      return res.status(404).json({ message: "user id invalid" });
     }
+
+    const filteredDeals = deals.map((item) => ({
+      ...item.toObject(),
+      investors: item.investors?.filter((v) => v?.investerId !== id),
+    }));
+
+    for (const deal of filteredDeals) {
+      await Deal.updateOne(
+        { _id: deal._id },
+        { $set: { investors: deal.investors } }
+      );
+    }
+
+    await User.findByIdAndDelete(id);
     res.status(200).json("user delete successfully");
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Internal server error" });
   }
-}
+};
 
 
 

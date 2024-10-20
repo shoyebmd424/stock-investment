@@ -67,7 +67,7 @@ const AboutDeal = () => {
               ...comp?.dealSummary,
               totalInvestment: pay,
               profitLoss: totalProfit.toFixed(2),
-              moic: totalMoic.toFixed(2),
+              moic:(totalMoic/total).toFixed(2)+'x',
               irr,
               investments: total,
             }
