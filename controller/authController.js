@@ -291,16 +291,17 @@ const deleteUser = async (req, res) => {
     }
 
     const filteredDeals = deals.map((item) => ({
-      ...item.toObject(),
-      investors: item.investors?.filter((v) => v?.investerId !== id),
+      ...item.toObject(), 
+      investors: item.investors?.filter((v) => v?.investerId !== id) 
     }));
-
+  
     for (const deal of filteredDeals) {
       await Deal.updateOne(
-        { _id: deal._id },
-        { $set: { investors: deal.investors } }
+        { _id: deal._id }, 
+        { $set: { investors: deal.investors } } 
       );
     }
+  
 
     await User.findByIdAndDelete(id);
     res.status(200).json("user delete successfully");
