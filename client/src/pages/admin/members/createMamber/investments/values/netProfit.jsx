@@ -20,10 +20,11 @@ useEffect(() => {
   const calculateProfitAndMoic = async () => {
     let totalProfit = 0;
     let totalMoic = 0;
-
+      let total=0;
     for (const item of deals) {
       const investor = item?.investors?.find(v => v.investerId === userId);
       if (investor) {
+        total+=1;
         const paid = parseFloat(investor?.amount || 0) + parseFloat(investor?.fees || 0);
         const carried = parseFloat(investor?.carried || 0);
         const shareholding = parseFloat(investor?.shareholding || 0);
@@ -34,7 +35,7 @@ useEffect(() => {
       }
     }
     setProfit(totalProfit.toFixed(2));
-    setMoic(totalMoic);
+    setMoic(totalMoic/total);
   };
   getAllProfit().then(() => calculateProfitAndMoic());
 }, [currentValuation, userId, deals]);
