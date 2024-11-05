@@ -7,6 +7,7 @@ import { getByIdCompanyService,    updateCompanyWithoutService } from "../../../
 import axios from "axios";
 import { exChangeByDate, netMoic, netProfit } from "../../../../utils/calculations/investorGrossTotal";
 import { currencyFormatter } from "../../../../utils/formater/dateTimeFormater";
+import { calculateXIRRSingleInvestment } from "../../../../utils/calculations/calculateIrrSingleInvestment";
 
 const AddDealPop = ({ setIsNew, companyId,reFetch }) => {
 
@@ -70,9 +71,16 @@ const AddDealPop = ({ setIsNew, companyId,reFetch }) => {
           const entryFee = parseFloat(updatedField['entryFee'] || 0);
           const carried = parseFloat(updatedField['carried'] || 0);
           const shareholding = parseFloat(updatedField['shareholding'] || 0);
+          const paid=(amount + ((amount * entryFee) / 100))*rate;
           updatedField.fees = (amount * entryFee) / 100;
           updatedField.profit = await netProfit((amount + ((amount * entryFee) / 100))*rate, shareholding, deal?.currentValue, currency?.currency, carried/100);
           updatedField.moic = await netMoic((amount + ((amount * entryFee) / 100))*rate, shareholding, deal?.currentValue, currency?.currency, carried/100);
+           updatedField.irr = calculateXIRRSingleInvestment(
+            -1 * paid,
+            deal?.investedDate,
+            paid + updatedField.profit,
+            new Date().toLocaleDateString()
+          );
           return updatedField;
         }
         return field;
@@ -234,14 +242,6 @@ const AddDealPop = ({ setIsNew, companyId,reFetch }) => {
                     />
                   </div>
                   <div className="d-flex gap-2 mt-auto align-items-center">
-                    {/* <button
-                      type="button"
-                      onClick={handleAddField}
-                      style={{ width: "50px", aspectRatio: "1/1" }}
-                      className="btn-red p-0 rounded-circle"
-                    >
-                      <BsPlus size={20} />
-                    </button> */}
                     <button
                       type="button"
                       style={{ width: "50px", aspectRatio: "1/1" }}
@@ -291,7 +291,7 @@ const AddDealPop = ({ setIsNew, companyId,reFetch }) => {
                     <label htmlFor="">Net IRR</label>
                     <input
                       type="text"
-                      value={"N.M"}
+                      value={field?.irr?.toFixed(2)+"%"}
                       className="input-field bg-white border border-2"
                       disabled
                     />

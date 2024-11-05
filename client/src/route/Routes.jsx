@@ -29,6 +29,11 @@ export const routes = [
     needsAuth: true,
     children:[
       {
+        path: "",
+        element: <Dashboard role="admin" />,
+        needsAuth: true,
+      },
+      {
         path: "member",
         element: <Dashboard role="admin" />,
         needsAuth: true,
@@ -75,6 +80,11 @@ export const routes = [
     element:<CustomerLayout/>,
     needsAuth:true,
     children:[
+     {
+      path:"",
+      element:<Portfolio/>,
+      needsAuth:true,
+     },
      {
       path:"overview",
       element:<Portfolio/>,

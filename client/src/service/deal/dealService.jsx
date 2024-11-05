@@ -17,7 +17,6 @@ export const  addDealService=async(val)=>{
     
     export const  updateDealService=async(id,val)=>{
     try {
-        console.log(val)
         const {data}=await updateDealRepo(id,val);
         if(data?.message){
             return showToast("error",data?.message);

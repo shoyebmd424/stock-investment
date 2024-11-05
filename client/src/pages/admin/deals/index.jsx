@@ -7,7 +7,10 @@ import {
 } from "../../../service/deal/dealService";
 import { Server } from "../../../service/axios";
 import { currencyFormatter } from "../../../utils/formater/dateTimeFormater";
-import { calculateIrrSingleInvestment } from "../../../utils/calculations/calculateIrrSingleInvestment";
+import {
+  calculateIrrSingleInvestment,
+  calculateXIRRSingleInvestment,
+} from "../../../utils/calculations/calculateIrrSingleInvestment";
 import { getByIdCompanyService } from "../../../service/company/companyService";
 import { getUserByIdService } from "../../../service/auth/AuthService";
 import {
@@ -69,14 +72,11 @@ const Deals = () => {
               scope="col text-uppercase "
               style={{ width: "60px", aspectRatio: "1/1" }}
               className="border-0"
-            >
-              
-            </th>
+            ></th>
             <th
               scope="col text-uppercase "
               onClick={() => handleSortByCompanyName()}
             >
-              
               COMPANY
               {sort === "asc" ? (
                 <MdArrowDropUp size={30} />
@@ -167,16 +167,17 @@ const GetInvest = ({ deal, investor, investDate, companyId }) => {
   const [profit, setprofit] = useState(0);
   const [moic, setMoic] = useState(0);
   const [shareholding, setShare] = useState(investor?.shareholding);
+  const [irr, setIrr] = useState(0);
   const [isEdit, setIsEdit] = useState(false);
-  const [currentValuation,setCurrentValuation]=useState(0);
+  const [currentValuation, setCurrentValuation] = useState(0);
 
-  useEffect(()=>{
-    const handle=async()=>{
-      const com=await getByIdCompanyService(companyId);
-      setCurrentValuation(parseInt(com?.dealSummary?.currentValuation))
-    }
+  useEffect(() => {
+    const handle = async () => {
+      const com = await getByIdCompanyService(companyId);
+      setCurrentValuation(parseInt(com?.dealSummary?.currentValuation));
+    };
     handle();
-  },[companyId])
+  }, [companyId]);
 
   useEffect(() => {
     const handle = async () => {
@@ -198,6 +199,13 @@ const GetInvest = ({ deal, investor, investDate, companyId }) => {
         deal.currency,
         carried / 100
       );
+      const irr = calculateXIRRSingleInvestment(
+        -1 * paid,
+        investDate,
+        paid + profitResult,
+        new Date().toLocaleDateString()
+      );
+      setIrr(irr);
       setprofit(profitResult?.toFixed(2));
       setMoic(moicResult);
     };
@@ -219,8 +227,7 @@ const GetInvest = ({ deal, investor, investDate, companyId }) => {
     };
   }, []);
   const handleChange = async (e) => {
-    // const { value } = e.target;
-    let val=e.target.value.replace("%", "");
+    let val = e.target.value.replace("%", "");
     deal.investors.find(
       (v) =>
         v?.investerId === investor?.investerId && v?.profit === investor?.profit
@@ -237,38 +244,18 @@ const GetInvest = ({ deal, investor, investDate, companyId }) => {
       <td>{investDate}</td>
       <td> {currencyFormatter(investor?.invest, deal?.currency)}</td>
       <td>{profit}</td>
-      <td> {moic && moic?.toString()?.substring(0, 4)+'x'}</td>
+      <td> {moic && moic?.toString()?.substring(0, 4) + "x"}</td>
       <td>
-        <IrrVal
-          initialInvestment={investor?.amount}
-          investmentDate={investDate}
-          currentValue={currentValuation}
-        />
+        {irr?.toFixed(2)}
       </td>
       <td style={{ width: "60px", aspectRatio: "1/1" }}>
-        
         <div className="d-flex field " ref={editRef}>
-          
-          {/* {!isEdit ? (
-            <>
-              <div className="d-flex gap-3">
-                <span>{shareholding}%</span>
-                <MdOutlineModeEdit
-                  className="text-danger"
-                  onClick={() => setIsEdit(true)}
-                  style={{ cursor: "pointer" }}
-                  size={20}
-                />
-              </div>
-            </>
-          ) : ( */}
-            <input
-              type="text"
-              className="input-field py-2 me-3"
-              value={shareholding !== "" ? `${shareholding}%` : ""}
-              onChange={handleChange}
-            />
-          {/* )} */}
+          <input
+            type="text"
+            className="input-field py-2 me-3"
+            value={shareholding !== "" ? `${shareholding}%` : ""}
+            onChange={handleChange}
+          />
         </div>
       </td>
     </>
@@ -288,7 +275,6 @@ const InvestorName = ({ id }) => {
   }, [id]);
   return (
     <>
-      
       {user?.personal?.firstName} {user?.personal?.lastName}
     </>
   );

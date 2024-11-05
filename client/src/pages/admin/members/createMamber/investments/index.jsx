@@ -30,10 +30,10 @@ const Investments = ({userId}) => {
                   <th scope="col text-uppercase "style={{ width: "60px", aspectRatio: "1/1" }}  className="border-0" > </th>
                   <th scope="col text-uppercase "> COMPANY</th>
                   <th scope="col text-uppercase ">ASSET CLASS</th>
+                  <th scope="col text-uppercase ">TOTAL INVESTMENT</th>
                   <th scope="col text-uppercase ">NET PROFIT(LOSS)</th>
                   <th scope="col text-uppercase ">SECTOR</th>
                   <th scope="col text-uppercase ">NET MOIC</th>
-                  <th scope="col text-uppercase ">TOTAL INVESTMENT</th>
                   <th scope="col text-uppercase ">NET IRR </th>
                   <th scope="col text-uppercase " className='text-end'>NUMBER OF INVESTMENTS </th>
                   <th style={{ width: "60px", aspectRatio: "1/1" }}  className="border-0"></th>
@@ -93,9 +93,8 @@ const Company = ({ companyId,list, index, deals,userId }) => {
         </td>
         <td className='text-capitalize'>{company?.name}</td>
         <td>{company?.dealSummary?.asset}</td>
-        <NetProfit deals={deals} userId={userId} currentValuation={currentValuation} sector={company?.dealSummary?.sector} />
         <td>{currencyFormatter(totalIvestMents)}</td>
-        <td>{irr}</td>
+        <NetProfit deals={deals} userId={userId} currentValuation={currentValuation} sector={company?.dealSummary?.sector} />
         <td className='text-end'>
           <div className="d-flex justify-content-end">
           <button onClick={() => setisDealList(true)} className="btn-dark d-flex justify-content-center gap-2 align-items-center">

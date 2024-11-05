@@ -50,7 +50,7 @@ const DealListpop = ({ setIsNew,company, deals,userId }) => {
                 <td>{val?.investedDate}</td>
                 <td> {currencyFormatter(val?.investors&&val?.investors?.find(v=>v.investerId===user?._id)?.amount||val?.investors&&val?.investors?.find(v=>v.investerId===userId)?.amount)}</td>
                 <NetProfit deal={val} currentValuation={company?.dealSummary?.currentValuation} userId={userId||user?._id} sector={company?.dealSummary?.sector}/>
-                <td><IrrVal initialInvestment={val?.investors&&val?.investors?.find(v=>v.investerId===(userId||user?._id))?.amount} investmentDate={val?.investedDate}  currentValue={val?.currentValue}/></td>
+                {/* <td><IrrVal initialInvestment={val?.investors&&val?.investors?.find(v=>v.investerId===(userId||user?._id))?.amount} investmentDate={val?.investedDate}  currentValue={val?.currentValue}/></td> */}
                 <td> <GetWeight userId={userId} amount={val?.investors&&val?.investors?.find(v=>v.investerId===userId)?.amount} /></td>
               </tr>
             ))}
