@@ -9,28 +9,38 @@ table {
   
  
 
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+    background: white !important;
+  }
+  
+ 
+
 table tr>th{
     border: none;
 }
 table tr td{
-      padding: 10px  0;
+      padding: 10px;
+      width: 11.11%;
     background-color: #fff;
-    border: none !important;
-    border-bottom: 2px solid $border-line !important;
-    // border-top: 2px solid $dark-orange;
+    border-bottom: 2px solid $dark-orange;
+    border-top: 2px solid $dark-orange;
   }
   
   table tr>:first-child {
-    // background-color: #fff; 
-    // border: 2px solid $dark-orange; 
-    border-radius:0 !important;
+    background-color: #fff; 
+    border: 2px solid $dark-orange; 
+    border-radius:50% 0 0 50%;
     border-right: 0;
   }
   
   table tr>:last-child{
-    border-radius:0 !important;
-    // border: 2px solid $dark-orange;
+    border-radius:0 50% 50% 0;
+    border: 2px solid $dark-orange;
     border-left: 0;
   }
+
  
 }

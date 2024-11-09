@@ -27,7 +27,7 @@ const Investments = ({userId}) => {
             <table className='p-3' >
               <thead className="thead-dark">
                 <tr>
-                  <th scope="col text-uppercase "style={{ width: "60px", aspectRatio: "1/1" }}  className="border-0" > </th>
+                  <th scope="col text-uppercase "style={{  aspectRatio: "1/1" }}  className="border-0" > </th>
                   <th scope="col text-uppercase "> COMPANY</th>
                   <th scope="col text-uppercase ">ASSET CLASS</th>
                   <th scope="col text-uppercase ">TOTAL INVESTMENT</th>
@@ -36,7 +36,7 @@ const Investments = ({userId}) => {
                   <th scope="col text-uppercase ">NET MOIC</th>
                   <th scope="col text-uppercase ">NET IRR </th>
                   <th scope="col text-uppercase " className='text-end'>NUMBER OF INVESTMENTS </th>
-                  <th style={{ width: "60px", aspectRatio: "1/1" }}  className="border-0"></th>
+                  <th style={{  aspectRatio: "1/1" }}  className="border-0"></th>
                 </tr>
               </thead>
               <tbody>
@@ -89,21 +89,19 @@ const Company = ({ companyId,list, index, deals,userId }) => {
     <>
       <tr key={index} className="p-3 ">
         <td>
-        <div className='ms-2 cursor-pointer' onClick={()=>navigate("/admin/companies/new-company",{state:company?._id})}  style={{width:'50px',aspectRatio:"1/1"}}>  <img className='w-100 h-100 rounded-circle' src={Server+company?.profile||company?.img} alt="" /></div>
+        <div className='ms-2 cursor-pointer' onClick={()=>navigate("/admin/companies/new-company",{state:company?._id})}  style={{aspectRatio:"1/1"}}>  <img className='w-100 h-100 rounded-circle' src={Server+company?.profile||company?.img} alt="" /></div>
         </td>
-        <td className='text-capitalize'>{company?.name}</td>
+        <td className='text-capitalize cursor-pointer' onClick={()=>navigate("/admin/companies/new-company",{state:company?._id})}>{company?.name}</td>
         <td>{company?.dealSummary?.asset}</td>
         <td>{currencyFormatter(totalIvestMents)}</td>
         <NetProfit deals={deals} userId={userId} currentValuation={currentValuation} sector={company?.dealSummary?.sector} />
-        <td className='text-end'>
+        <td className='pe-4' >
           <div className="d-flex justify-content-end">
           <button onClick={() => setisDealList(true)} className="btn-dark d-flex justify-content-center gap-2 align-items-center">
-            {deals && deals?.length} <div style={{width:"25px",aspectRatio:"1/1"}} className=' rounded-circle bg-dark-orange'> <IoIosArrowForward size={10} /></div>
+            {deals && deals?.length} <div style={{ width:"20px",aspectRatio:"1/1"}} className=' rounded-circle bg-dark-orange'> <IoIosArrowForward size={10} /></div>
           </button>
           </div>
         </td>
-        <td style={{ width: "60px", aspectRatio: "1/1" }}>
-              </td>
       </tr>
       {isDealList && <DealListpop userId={userId} company={company} deals={deals} setIsNew={setisDealList} />}
     </>

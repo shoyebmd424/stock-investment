@@ -1,5 +1,16 @@
 @import "../../../styles/variable";
 
+.terms{
+    background: $dark-color;
+    color: $input;
+    .main-head{
+        color: $dark-orange;
+        // border-bottom: 2px solid $dark-orange;
+    }
+    .terms-list{
+        border: 2px solid $dark-orange;
+    }
+}
 .agrreement{
     height: 100vh;
     width: 100vw;

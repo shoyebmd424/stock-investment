@@ -7,6 +7,11 @@ export const netProfit = async(
   currency,
   carried
 ) => {
+  console.log(paid,
+    shareholding,
+    currentValuation,
+    currency,
+    carried)
   const rate=await exchange(currency);
   const profit = (shareholding * parseInt(currentValuation||0) * rate/100)-paid ;
   if (profit < 0) return profit;

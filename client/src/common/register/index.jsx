@@ -13,7 +13,7 @@ import {
 } from "../../service/auth/AuthService";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import { showToast } from "../../utils/toasters";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import Success from "../../components/auth/success";
 import AgreementPop from "../../components/auth/agreement";
 
@@ -64,11 +64,19 @@ const Register = () => {
       setStep(step + 1);
     }
   };
+ const validation=(password)=>{
+    if(password.length < 8||!/[A-Z]/.test(password)||!/\d/.test(password)||!/[@$!%*?&]/.test(password)) return false;
+    return true;
+  }
 
   const handleSubmit = async () => {
     if(!account?.agreement) {
       showToast('error'," select agree,Our terms and conditions");
        return;
+    }
+    if(!validation(account?.password)){
+      showToast('error',"Password criteria do not match");
+      return;
     }
     // account.role='ADMIN'
     let data = {
@@ -128,7 +136,7 @@ const Register = () => {
               <div className="row">
                 <div className="col-10 ps-0 ms-auto d-flex justify-content-between align-items-center">
                   <h5 className="semibol">
-                    Please complete your onboarding to access the <br />
+                    Please complete your onboarding <br /> to access the 
                     Anyma Platform.
                   </h5>
                   <div className="d-flex flex-column">
@@ -193,7 +201,7 @@ const Register = () => {
                         className="my-auto"
                       >
                         Agree,Our terms and conditions
-                      </label>
+                      </label> <Link className="text-white fw-semibold" to="/terms">Link terms & Cond.</Link>
                     </div>
                   )}
                   <button
@@ -250,7 +258,8 @@ const invest = [
     field: "sectors",
     option: [
       "Agritech / Foodtech",
-      "Ai/Data Science",
+      "AI / Data Science",
+      "Dreamtech",
       " Biotech / Medtech",
       " Blockchain / Web 3.0",
       "E-commerce",

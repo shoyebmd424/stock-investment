@@ -26,9 +26,9 @@ const DealListpop = ({ setIsNew,company, deals,userId }) => {
         <table>
           <thead className="thead-dark">
             <tr>
-              <th scope="col text-uppercase " style={{ width: "60px", aspectRatio: "1/1" }}  className="border-0"> </th>
-              <th scope="col text-uppercase "> COMPANY NAME</th>
-              <th scope="col text-uppercase ">ASSET ClASS </th>
+              <th scope="col text-uppercase " style={{  aspectRatio: "1/1" }}  className="border-0"> </th>
+              <th scope="col text-uppercase "> COMPANY <br /> NAME</th>
+              {/* <th scope="col text-uppercase ">ASSET ClASS </th> */}
               <th scope="col text-uppercase "> INVESTMENT DATE</th>
               <th scope="col text-uppercase "> INVESTMENT</th>
               <th scope="col text-uppercase ">NET PROFIT(LOSS)</th>
@@ -41,12 +41,12 @@ const DealListpop = ({ setIsNew,company, deals,userId }) => {
           </thead>
           <tbody>
             {deals?.map((val, key) => (
-              <tr key={key} className="p-3 " >
+              <tr key={key} className="" >
                 <td>
-                <div onClick={()=>navigate("about",{state:company?._id})} className=' ms-3' style={{width:'50px',aspectRatio:"1/1"}}>  <img className='w-100 h-100 rounded-circle cursor-pointer' src={Server+company?.profile||company?.img} alt="" /></div>
+                <div onClick={()=>navigate("about",{state:company?._id})} className=' ms-3' style={{aspectRatio:"1/1"}}>  <img className='w-100 h-100 rounded-circle cursor-pointer' src={Server+company?.profile||company?.img} alt="" /></div>
                 </td>
-                <td className="text-capitalize">{company?.name}</td>
-                <td>{company?.dealSummary?.asset}</td>
+                <td onClick={()=>navigate("about",{state:company?._id})} className="text-capitalize  cursor-pointer">{company?.name}</td>
+                {/* <td>{company?.dealSummary?.asset}</td> */}
                 <td>{val?.investedDate}</td>
                 <td> {currencyFormatter(val?.investors&&val?.investors?.find(v=>v.investerId===user?._id)?.amount||val?.investors&&val?.investors?.find(v=>v.investerId===userId)?.amount)}</td>
                 <NetProfit deal={val} currentValuation={company?.dealSummary?.currentValuation} userId={userId||user?._id} sector={company?.dealSummary?.sector}/>

@@ -70,7 +70,7 @@ const Deals = () => {
           <tr>
             <th
               scope="col text-uppercase "
-              style={{ width: "60px", aspectRatio: "1/1" }}
+              style={{ aspectRatio: "1/1" }}
               className="border-0"
             ></th>
             <th
@@ -105,8 +105,8 @@ const Deals = () => {
                 <td>
                   <div
                     onClick={() => navigate("about", { state: val?.companyId })}
-                    className=" ms-3"
-                    style={{ width: "50px", aspectRatio: "1/1" }}
+                    className=" "
+                    style={{ aspectRatio: "1/1" }}
                   >
                     <img
                       className="w-100 h-100 rounded-circle"
@@ -115,7 +115,7 @@ const Deals = () => {
                     />
                   </div>
                 </td>
-                <td className="text-capitalize">{val?.companyName}</td>
+                <td   onClick={() => navigate("about", { state: val?.companyId })} className="text-capitalize cursor-pointer">{val?.companyName}</td>
                 <GetInvest
                   deal={val}
                   investor={v}
@@ -248,7 +248,7 @@ const GetInvest = ({ deal, investor, investDate, companyId }) => {
       <td>
         {irr?.toFixed(2)}
       </td>
-      <td style={{ width: "60px", aspectRatio: "1/1" }}>
+      <td style={{  aspectRatio: "1/1" }}>
         <div className="d-flex field " ref={editRef}>
           <input
             type="text"

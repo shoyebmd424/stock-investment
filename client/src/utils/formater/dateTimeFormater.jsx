@@ -24,6 +24,7 @@ export function formatTimeFromNow(dateTime) {
 
 export const currencyFormatter = (val, currency = 'EUR', style = 'currency') => {
     try {
+      
       return new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: currency,

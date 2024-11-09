@@ -30,25 +30,31 @@ const handleDelete=async(id)=>{
       <table >
         <thead className="thead-dark">
           <tr>
-            <th style={{ width: "60px", aspectRatio: "1/1" }}  className="border-0"></th>
-            <th scope="col" className="border-0 ps-3">Member's Name</th>
+            
+          <th scope="col " className="border-0" style={{width:"50px"}}></th>
+          <th scope="col" className="border-0 ps-3 text-center">Member's Name</th>
+          <th  ></th>
             <th scope="col">Email</th>
+            <th ></th>
             <th scope="col">TOTAL INVESTMENT</th>
-            <th scope="col"> TOTAL AMOUNT </th>
-            <th scope="col"> </th>
-            <th  className="border-0"></th>
+            <th ></th>
+              <th scope="col"> TOTAL AMOUNT </th>
+            <th  ></th>
+            <th scope="col" className="border-0"></th>
           </tr>
         </thead>
         <tbody>
           {members&&members?.map((val, key) => (
             <tr key={key}>
-              <td style={{ width: "60px", aspectRatio: "1/1" }}>
-                {/* <img className="w-100 h-100" src={val?.img || img} alt="" /> */}
-              </td>
-              <td className=" ps-5">{val?.personal?.firstName} {val?.personal?.lastName}</td>
+              <td ></td>
+              <td  className=" ps-5 "> <div className="aspect-"> {val?.personal?.firstName} {val?.personal?.lastName}</div></td>
+              <td ></td>
               <td>{val?.account?.email}</td>
+              <td ></td>
              <Deals userId={val._id}/>
-              <td className="d-flex gap-3 ">
+             {/* <td ></td> */}
+              <td className=" pe-3">
+                <div className="d-flex gap-3">
                 <button
                   onClick={() => navigate("personal-details",{state:val?._id})}
                   className="btn text-primary bg-very-light-gray rounded-circle"
@@ -58,9 +64,7 @@ const handleDelete=async(id)=>{
                 <button onClick={()=>handleDelete(val?._id)} className="btn bg-gray bg-very-light-gray rounded-circle text-gray">
                   <FaTrash size={20} />
                 </button>
-              </td>
-              <td style={{ width: "60px", aspectRatio: "1/1" }}>
-                {/* <img className="w-100 h-100" src={val?.img || img} alt="" /> */}
+                </div>
               </td>
             </tr>
           ))}
@@ -111,7 +115,8 @@ const Deals = ({ userId }) => {
 
   return (
     <>
-      <td>{investment} Investments</td>
+      <td> <div style={{fontSize:"15px"}} className="d-flex gap-2">{investment} Investments</div></td>
+      <td></td>
       <td >{currencyFormatter(amount)}</td>
     </>
   );

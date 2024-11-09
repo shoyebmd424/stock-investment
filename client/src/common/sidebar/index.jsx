@@ -95,7 +95,7 @@ const Sidebar = ({ sidebarData }) => {
                       {val?.name}
                       {val?.soon && (
                         <span
-                          style={{ fontSize: "9px ",padding:"3px 0" }}
+                          style={{ fontSize: "8px ",padding:"2.5px 0" }}
                           className="bg-secondary ms-1 my-auto rounded-5 text-white px-2 position-absolute"
                         >
                           SOON

@@ -47,7 +47,7 @@ const Portfolio = () => {
     { name: " TOTAL INVESTMENTS", qty: totalInvestments, icon: invest },
     {
       name: "   AMOUNT INVESTED (INCL. FEES)",
-      qty: currencyFormatter(totalInvested),
+      qty:  currencyFormatter(totalInvested),
       icon: amount,
     },
     {
@@ -55,7 +55,7 @@ const Portfolio = () => {
       qty: currencyFormatter(TotalCurrenctValuation),
       icon: valuation,
     },
-    { name: " NET PROFIT (LOSS)", qty: currencyFormatter(profit), icon: pro },
+    { name: " NET PROFIT (LOSS)", qty: (profit<0?"(-) ":"")+currencyFormatter(Math.abs(profit)), icon: pro },
     {
       name: "  NET MOIC",
       qty: (moic && moic?.toString()?.substring(0, 4) + "x") || 0,
@@ -107,9 +107,12 @@ const Portfolio = () => {
           }
         }
       }
+        if(pay!==0){
       investment = [...investment, [pay + totalProfit, new Date()]];
       const netIrr = calculateXIRRPortfolio(investment);
       setIrr(netIrr?.toFixed(2));
+        }
+      
       setprofit(totalProfit);
       setMoic(totalMoic / total);
       setTotalInvested(pay);
@@ -131,17 +134,17 @@ const Portfolio = () => {
               {fieldData?.map((val, index) => (
                 <div key={index} className="px-0">
                   <div
-                    className={`d-flex p-2 border border-1 mb-3 ${
+                    className={`d-flex px-4 py-3 border border-2 mb-3 ${
                       index % 3 !== 0 && "mx-3 me-0"
                     } rounded-1 border-dark bg-white  justify-content-between`}
                   >
                     <div className="d-flex flex-column gap-2 justify-content-between">
-                      <span className="text-muted small">{val?.name}</span>
-                      <span className="fw-bold ">{val?.qty}</span>
+                      <span className="text-muted small fw-bold">{val?.name}</span>
+                      <span className="fw-bold p-txt fs-5 ">{val?.qty}</span>
                     </div>
                     <div
                       className="my-auto  rounded-circle bg-very-light-red"
-                      style={{ width: "40px", aspectRatio: "1/1" }}
+                      style={{ width: "50px", aspectRatio: "1/1" }}
                     >
                       <img className="w-100 h-100 p-2" src={val?.icon} alt="" />
                     </div>
@@ -157,7 +160,7 @@ const Portfolio = () => {
       <div className="h-50">
         <div className="my-3">
           <div className="bg-dark py-3 px-4 rounded d-flex justify-content-between">
-            <h5 className="text-white mb-0 fw-bold text-uppercase">
+            <h5 className="text-white mb-0 fw-bold text-capitalize">
               Investments
             </h5>
           </div>
@@ -168,23 +171,20 @@ const Portfolio = () => {
               <tr>
                 <th
                   scope="col "
-                  style={{ width: "60px", aspectRatio: "1/1" }}
                   className="border-0"
                 >
-                  {" "}
                 </th>
                 <th scope="col "> COMPANY</th>
                 <th scope="col">ASSET CLASS</th>
                 <th scope="col ">TOTAL INVESTMENT</th>
                 <th scope="col ">NET PROFIT(Loss)</th>
                 <th scope="col ">SECTOR</th>
-                <th scope="col ">NET MOIC</th>
+            <th scope="col ">NET MOIC</th>
                 <th scope="col ">NET IRR </th>
-                <th scope="col " className="text-end">
+                <th scope="col ">
                   NUMBER OF INVESTMENTS{" "}
                 </th>
                 <th
-                  style={{ width: "60px", aspectRatio: "1/1" }}
                   className="border-0"
                 ></th>
               </tr>
@@ -254,9 +254,8 @@ const Company = ({ companyId, list, index, deals, userId }) => {
               navigate("/customer/overview/about", { state: companyId })
             }
             className=" ms-2"
-            style={{ width: "50px", aspectRatio: "1/1" }}
+            style={{ aspectRatio: "1/1" }}
           >
-            {" "}
             <img
               className="w-100 h-100 cursor-pointer rounded-circle"
               src={Server + company?.profile || company?.img}
@@ -264,7 +263,9 @@ const Company = ({ companyId, list, index, deals, userId }) => {
             />
           </div>
         </td>
-        <td className="text-capitalize">{company?.name}</td>
+        <td className="text-capitalize cursor-pointer"   onClick={() =>
+              navigate("/customer/overview/about", { state: companyId })
+            }>{company?.name}</td>
         <td>{company?.dealSummary?.asset}</td>
         <td>{currencyFormatter(totalIvestMents)}</td>
         <NetProfit
@@ -275,23 +276,22 @@ const Company = ({ companyId, list, index, deals, userId }) => {
         />
         {/* <td>{irr}</td> */}
         <td>
-          <div className="d-flex justify-content-end">
+          <div className="d-flex">
             <button
               onClick={() => setisDealList(true)}
               className="btn-dark d-flex justify-content-center gap-2 align-items-center"
             >
-              {deals && deals?.length}{" "}
+              {deals && deals?.length}
               <div
                 style={{ width: "25px", aspectRatio: "1/1" }}
                 className=" rounded-circle bg-dark-orange"
               >
-                {" "}
                 <IoIosArrowForward size={10} />
               </div>
             </button>
           </div>
         </td>
-        <td style={{ width: "50px", aspectRatio: "1/1" }}></td>
+        {/* <td style={{ width: "50px", aspectRatio: "1/1" }}></td> */}
       </tr>
       {isDealList && (
         <DealListpop

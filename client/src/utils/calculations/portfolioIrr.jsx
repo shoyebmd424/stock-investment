@@ -19,6 +19,7 @@ export function calculatePortfolioIrr(
 
 // new irr
 export function calculateXIRRPortfolio(investments) {
+console.log(investments)
   let cashFlows = investments.map((investment) => investment[0]);
   let dates = investments.map((investment) => new Date(investment[1]));
 

@@ -1,6 +1,7 @@
 import { lazy } from "react";
 
 /* eslint-disable react-refresh/only-export-components */
+const  Terms = lazy(()=>import( "../components/auth/agreement/terms"));
 const  Deals = lazy(()=>import( "../pages/admin/deals"));
 const  AdminLayout = lazy(()=>import( "../pages/admin/adminLayout"));
 const  Dashboard = lazy(()=>import( "../pages/admin/dashboard"));
@@ -17,6 +18,10 @@ const  Profile = lazy(()=>import( "../common/profile"));
 export const routes = [
   { path: "/login",
     element: <Login role="admin" />,
+    needsAuth: false,
+  },
+  { path: "/terms",
+    element: <Terms  />,
     needsAuth: false,
   },
   { path: "/",

@@ -10,8 +10,7 @@ import { currencyFormatter, formatTimeFromNow } from '../../../../utils/formater
 import { getByCompanyIdDealService } from '../../../../service/deal/dealService'
 import { netMoic, netProfit } from '../../../../utils/calculations/investorGrossTotal'
 import { getAuth } from '../../../../utils/authenticationHelper'
-import { calculatePortfolioIrr } from '../../../../utils/calculations/portfolioIrr'
-import { portfolioIrrParameter } from '../../../../utils/calculationConversion'
+import {  calculateXIRRPortfolio } from '../../../../utils/calculations/portfolioIrr'
 
 const AboutDeal = () => {
     const {state}=useLocation();
@@ -19,63 +18,67 @@ const AboutDeal = () => {
     const userId=getAuth()?.user?._id;
     
     useEffect(() => {
-        const getCompanyById = async () => {
-          let totalProfit = 0;
-          let totalMoic = 0;
-          let pay = 0;
-          let total = 0;
-          let irr=0;
-          
-          const comp = await getByIdCompanyService(state);
-          const data = await getByCompanyIdDealService(state);
-          
-          for (const item of data) {
-            const investor = item?.investors?.find(v => v.investerId === userId);
-            if (investor) {
-              total+=1;
-              const paid = parseFloat(investor?.amount || 0);
-              const carried = parseFloat(investor?.carried || 0);
-              const shareholding = parseFloat(investor?.shareholding || 0);
-              const profitResult = await netProfit(
-                paid,
-                shareholding,
-                parseFloat(comp?.dealSummary?.currentValuation || 0),
-                item.currency,
-                carried / 100
-              );
-              const moicResult = await netMoic(
-                paid,
-                shareholding,
-                parseFloat(comp?.dealSummary?.currentValuation || 0),
-                item.currency,
-                carried / 100
-              );
-              
-              totalProfit += profitResult;
-              totalMoic += moicResult;
-              pay += paid;
-            }
+      const getCompanyById = async () => {
+        let totalProfit = 0;
+        let totalMoic = 0;
+        let pay = 0;
+        let total = 0;
+        let investment = [];
+        let irr=0;
+        const comp = await getByIdCompanyService(state);
+        const data = await getByCompanyIdDealService(state);
+        
+        for (const item of data) {
+          const investor = item?.investors?.find(v => v.investerId === userId);
+          if (investor) {
+            total += 1;
+            const paid = parseFloat(investor?.amount || 0)+parseFloat(investor?.fees);
+            const carried = parseFloat(investor?.carried || 0);
+            const shareholding = parseFloat(investor?.shareholding || 0);
+            
+            const profitResult = await netProfit(
+              paid,
+              shareholding,
+              parseFloat(comp?.dealSummary?.currentValuation || 0),
+              item?.currency,
+              carried / 100
+            );
+            const moicResult = await netMoic(
+              paid,
+              shareholding,
+              parseFloat(comp?.dealSummary?.currentValuation || 0),
+              item.currency,
+              carried / 100
+            );
+            console.log(moicResult)
+            totalProfit += profitResult;
+            totalMoic += moicResult;
+            pay += paid;
+            investment = [...investment, [-1 * paid, item?.investedDate]];
           }
-          
-          const { totalCurrentValue, currentDate, investments } = portfolioIrrParameter([{ deals: data }], userId);
-          if (totalCurrentValue && currentDate && investments) {
-             irr = calculatePortfolioIrr(investments, currentDate, totalCurrentValue);
+        }
+        
+        if (pay !== 0) {
+          investment = [...investment, [pay + totalProfit, new Date()]];
+          irr = calculateXIRRPortfolio(investment);
+        }
+        
+        setCompany({
+          ...comp,
+          dealSummary: {
+            ...comp?.dealSummary,
+            totalInvestment: pay,
+            profitLoss: totalProfit.toFixed(2),
+            moic: (totalMoic / total).toFixed(2) + 'x',
+            irr:irr?.toFixed(2)+"%",
+            investments: total,
           }
-          setCompany({
-            ...comp,
-            dealSummary: {
-              ...comp?.dealSummary,
-              totalInvestment: pay,
-              profitLoss: totalProfit.toFixed(2),
-              moic:(totalMoic/total).toFixed(2)+'x',
-              irr,
-              investments: total,
-            }
-          });
-        };
-      
-        getCompanyById();
-      }, [state]); 
+        });
+      };
+  
+      getCompanyById();
+    }, [state, userId]); 
+  
       
 
   
@@ -187,7 +190,7 @@ const data = [
     { name: "asset", label: "ASSET CLASS" ,type:"input"},
     { name: "sector", label: "SECTOR" ,type:"input"},
     { name: "investments", label: "NUMBER OF INVESTMENTS" ,type:"input"},
-    { name: "totalInvestment", label: "TOTAL INVESTMENT",type:"input" },
+    { name: "totalInvestment", label: "TOTAL INVESTMENT",type:"inpFut" },
     { name: "profitLoss", label: "NET PROFIT (LOSS)",type:"input" },
     { name: "moic", label: "NET MOIC",type:"input" },
     { name: "irr", label: "NET IRR",type:"input" },
