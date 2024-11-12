@@ -3,7 +3,6 @@ import "../createMamber.scss"
 import { getAllDealByUserAndCompanyService } from '../../../../../service/deal/dealService';
 import { getByIdCompanyService } from '../../../../../service/company/companyService';
 import { portfolioIrrParameter } from '../../../../../utils/calculationConversion';
-import { calculatePortfolioIrr } from '../../../../../utils/calculations/portfolioIrr';
 import DealListpop from '../../../../../components/customer/dealPop';
 import { Server } from '../../../../../service/axios';
 import { IoIosArrowForward } from "react-icons/io";
@@ -76,11 +75,6 @@ const Company = ({ companyId,list, index, deals,userId }) => {
         return totalDeals;
       });
       
-      const filteredList=list?.filter(v=>v._id===companyId);
-      const {totalCurrentValue, currentDate, investments}=portfolioIrrParameter(filteredList,userId);
-      if(totalCurrentValue&&currentDate&&investments){
-        setIrr(calculatePortfolioIrr(investments,currentDate,totalCurrentValue));
-      }
 
     };
     getCompanyById();

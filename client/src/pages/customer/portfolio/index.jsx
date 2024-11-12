@@ -8,19 +8,15 @@ import pro from "../../../assets/all-img/increase.png";
 import irr from "../../../assets/all-img/return-on-investment.png";
 import DealListpop from "../../../components/customer/dealPop";
 import {
-  getAllCompanyService,
   getByIdCompanyService,
 } from "../../../service/company/companyService";
 import {
   getAllDealByUserAndCompanyService,
-  getByCompanyIdDealService,
 } from "../../../service/deal/dealService";
 import { Server } from "../../../service/axios";
 import { getAuth } from "../../../utils/authenticationHelper";
 import { currencyFormatter } from "../../../utils/formater/dateTimeFormater";
-import { portfolioIrrParameter } from "../../../utils/calculationConversion";
 import {
-  calculatePortfolioIrr,
   calculateXIRRPortfolio,
 } from "../../../utils/calculations/portfolioIrr";
 import NetProfit from "../../admin/members/createMamber/investments/values/netProfit";
@@ -165,7 +161,7 @@ const Portfolio = () => {
             </h5>
           </div>
         </div>
-        <div className="bg-white h-50">
+        <div className="bg-white h-50 p-investment-table">
           <table className="px-3">
             <thead className="thead-dark">
               <tr>
@@ -233,14 +229,6 @@ const Company = ({ companyId, list, index, deals, userId }) => {
         return totalDeals;
       });
 
-      const filteredList = list?.filter((v) => v._id === companyId);
-      const { totalCurrentValue, currentDate, investments } =
-        portfolioIrrParameter(filteredList, userId);
-      if (totalCurrentValue && currentDate && investments) {
-        setIrr(
-          calculatePortfolioIrr(investments, currentDate, totalCurrentValue)
-        );
-      }
     };
     getCompanyById();
   }, [companyId]);
@@ -253,7 +241,7 @@ const Company = ({ companyId, list, index, deals, userId }) => {
             onClick={() =>
               navigate("/customer/overview/about", { state: companyId })
             }
-            className=" ms-2"
+            className=" "
             style={{ aspectRatio: "1/1" }}
           >
             <img

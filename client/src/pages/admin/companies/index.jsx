@@ -60,7 +60,6 @@ const Companies = () => {
                   <div
                     style={{
                       aspectRatio: "1/1",
-                      marginLeft: "10px",
                     }}
                   >
                     <img

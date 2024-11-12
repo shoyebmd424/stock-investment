@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { getAuth } from "../../../utils/authenticationHelper";
 import { Server } from "../../../service/axios";
 import { currencyFormatter } from "../../../utils/formater/dateTimeFormater";
-import { calculateIrrSingleInvestment } from "../../../utils/calculations/calculateIrrSingleInvestment";
 import NetProfit from "./profitCal";
 import { getWeight } from "../../../utils/calculations/weightCalculate";
 
@@ -28,7 +27,6 @@ const DealListpop = ({ setIsNew,company, deals,userId }) => {
             <tr>
               <th scope="col text-uppercase " style={{  aspectRatio: "1/1" }}  className="border-0"> </th>
               <th scope="col text-uppercase "> COMPANY <br /> NAME</th>
-              {/* <th scope="col text-uppercase ">ASSET ClASS </th> */}
               <th scope="col text-uppercase "> INVESTMENT DATE</th>
               <th scope="col text-uppercase "> INVESTMENT</th>
               <th scope="col text-uppercase ">NET PROFIT(LOSS)</th>
@@ -43,14 +41,12 @@ const DealListpop = ({ setIsNew,company, deals,userId }) => {
             {deals?.map((val, key) => (
               <tr key={key} className="" >
                 <td>
-                <div onClick={()=>navigate("about",{state:company?._id})} className=' ms-3' style={{aspectRatio:"1/1"}}>  <img className='w-100 h-100 rounded-circle cursor-pointer' src={Server+company?.profile||company?.img} alt="" /></div>
+                <div onClick={()=>navigate("about",{state:company?._id})} className='' style={{aspectRatio:"1/1"}}>  <img className='w-100 h-100 rounded-circle cursor-pointer' src={Server+company?.profile||company?.img} alt="" /></div>
                 </td>
                 <td onClick={()=>navigate("about",{state:company?._id})} className="text-capitalize  cursor-pointer">{company?.name}</td>
-                {/* <td>{company?.dealSummary?.asset}</td> */}
                 <td>{val?.investedDate}</td>
                 <td> {currencyFormatter(val?.investors&&val?.investors?.find(v=>v.investerId===user?._id)?.amount||val?.investors&&val?.investors?.find(v=>v.investerId===userId)?.amount)}</td>
                 <NetProfit deal={val} currentValuation={company?.dealSummary?.currentValuation} userId={userId||user?._id} sector={company?.dealSummary?.sector}/>
-                {/* <td><IrrVal initialInvestment={val?.investors&&val?.investors?.find(v=>v.investerId===(userId||user?._id))?.amount} investmentDate={val?.investedDate}  currentValue={val?.currentValue}/></td> */}
                 <td> <GetWeight userId={userId} amount={val?.investors&&val?.investors?.find(v=>v.investerId===userId)?.amount} /></td>
               </tr>
             ))}
@@ -78,20 +74,3 @@ const GetWeight=({userId,amount})=>{
   },[userId,amount])
   return<>{weight}% </>
 }
-
-const IrrVal = ({ initialInvestment, investmentDate, currentValue }) => {
-  // console.log(initialInvestment, investmentDate, currentValue);
-  const [irr, setirr] = useState(0);
-  useEffect(() => {
-    setirr(
-      calculateIrrSingleInvestment(
-        parseInt(initialInvestment || 0),
-        new Date(investmentDate),
-        parseInt(currentValue || 0),
-        new Date()
-      )
-    );
-  }, [initialInvestment, investmentDate, currentValue]);
-
-  return <> {irr}</>;
-};

@@ -8,8 +8,7 @@
         height: 50px;
         aspect-ratio: 1/1;
     }
-}
-
+    
 table {
     width: 100% !important;
     border-collapse: separate;
@@ -31,14 +30,17 @@ table tr td{
   
   table tr>:first-child {
     background-color: #fff; 
+    width: 8%;
     border: 2px solid $dark-orange; 
     border-radius:50% 0 0 50%;
     border-right: 0;
   }
   
   table tr>:last-child{
+    width: 8%;
     border-radius:0 50% 50% 0;
     border: 2px solid $dark-orange;
     border-left: 0;
   }
  
+}

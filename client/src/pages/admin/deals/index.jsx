@@ -7,10 +7,7 @@ import {
 } from "../../../service/deal/dealService";
 import { Server } from "../../../service/axios";
 import { currencyFormatter } from "../../../utils/formater/dateTimeFormater";
-import {
-  calculateIrrSingleInvestment,
-  calculateXIRRSingleInvestment,
-} from "../../../utils/calculations/calculateIrrSingleInvestment";
+import { calculateXIRRSingleInvestment } from "../../../utils/calculations/calculateIrrSingleInvestment";
 import { getByIdCompanyService } from "../../../service/company/companyService";
 import { getUserByIdService } from "../../../service/auth/AuthService";
 import {
@@ -65,7 +62,7 @@ const Deals = () => {
 
   return (
     <div className="deals">
-      <table className="ps-5 table">
+      <table className="px-3">
         <thead className="thead-dark">
           <tr>
             <th
@@ -101,10 +98,9 @@ const Deals = () => {
           {deals?.map((val, key) =>
             val?.investors?.map((v, i) => (
               <tr key={key} className="p-3 ">
-                {/* <GetCompany id={val?.companyId}/> */}
                 <td>
                   <div
-                    onClick={() => navigate("about", { state: val?.companyId })}
+                    onClick={() => navigate("/admin/companies/new-company", { state: val?.companyId })}
                     className=" "
                     style={{ aspectRatio: "1/1" }}
                   >
@@ -115,7 +111,12 @@ const Deals = () => {
                     />
                   </div>
                 </td>
-                <td   onClick={() => navigate("about", { state: val?.companyId })} className="text-capitalize cursor-pointer">{val?.companyName}</td>
+                <td
+                  onClick={() => navigate("about", { state: val?.companyId })}
+                  className="text-capitalize cursor-pointer"
+                >
+                  {val?.companyName}
+                </td>
                 <GetInvest
                   deal={val}
                   investor={v}
@@ -149,7 +150,7 @@ const GetCompany = ({ id }) => {
         <div
           onClick={() => navigate("about", { state: company?._id })}
           className=" ms-3"
-          style={{ width: "50px", aspectRatio: "1/1" }}
+          style={{ aspectRatio: "1/1" }}
         >
           <img
             className="w-100 h-100 rounded-circle"
@@ -245,14 +246,12 @@ const GetInvest = ({ deal, investor, investDate, companyId }) => {
       <td> {currencyFormatter(investor?.invest, deal?.currency)}</td>
       <td>{profit}</td>
       <td> {moic && moic?.toString()?.substring(0, 4) + "x"}</td>
-      <td>
-        {irr?.toFixed(2)}
-      </td>
-      <td style={{  aspectRatio: "1/1" }}>
+      <td>{irr?.toFixed(2)}</td>
+      <td style={{ aspectRatio: "1/1" }} className="pe-3">
         <div className="d-flex field " ref={editRef}>
           <input
             type="text"
-            className="input-field py-2 me-3"
+            className="input-field py-2 "
             value={shareholding !== "" ? `${shareholding}%` : ""}
             onChange={handleChange}
           />
@@ -278,20 +277,4 @@ const InvestorName = ({ id }) => {
       {user?.personal?.firstName} {user?.personal?.lastName}
     </>
   );
-};
-
-const IrrVal = ({ initialInvestment, investmentDate, currentValue }) => {
-  const [irr, setirr] = useState(0);
-  useEffect(() => {
-    setirr(
-      calculateIrrSingleInvestment(
-        parseInt(initialInvestment || 0),
-        new Date(investmentDate),
-        parseInt(currentValue || 0),
-        new Date()
-      )
-    );
-  }, [initialInvestment, investmentDate, currentValue]);
-
-  return <> {irr}</>;
 };

@@ -1,18 +1,4 @@
- export function calculateIrrSingleInvestment(
-  initialInvestment,
-  investmentDate,
-  currentValue,
-  currentDate
-) {
-  const timeInYears =
-    (currentDate - investmentDate) / (365.0 * 24 * 60 * 60 * 1000);
-
-  const irr = (currentValue / initialInvestment) ** (1 / timeInYears) - 1;
-
-  return (irr * 100).toPrecision(2);
-}
 // new
-
 export function calculateXIRRSingleInvestment(initialInvestment, investmentDate, currentValue, currentDate) {
   console.log(initialInvestment, investmentDate, currentValue, currentDate)
   const cashFlows = [initialInvestment, currentValue];
@@ -28,7 +14,7 @@ function xirr(cashFlows, dates) {
       }, 0);
   };
 
-  let guess = 0.1; // Initial guess
+  let guess = 0.1; 
   for (let i = 0; i < 100; i++) {
       const npvValue = npv(guess);
       if (Math.abs(npvValue) < 1e-6) {

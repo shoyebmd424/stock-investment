@@ -23,5 +23,18 @@
                 margin-left: 15px;
             }
         }
+        
+        table tr td{
+            width: 12%;
+        }
+        table tr>:first-child {
+          
+          width: 8%;
+         
+        }
+        
+        table tr>:last-child{
+          width: 8%;
+        }
     }
 }

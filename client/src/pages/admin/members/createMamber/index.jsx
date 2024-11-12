@@ -102,7 +102,7 @@ const CreateMamber = () => {
       </form>
 
       {!paths?.includes("personal-add") && (
-        <div className="h-50">
+        <div className="h-50 investment-table">
           <div className="my-3">
             <div className="bg-dark py-3 px-4 rounded d-flex justify-content-between">
               <h5 className="text-white mb-0 fw-bold">Investments</h5>
