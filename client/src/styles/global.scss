@@ -1,4 +1,15 @@
 @import "./variable";
+
+
+@font-face {
+    font-family: graphit;
+    src: url(../../asset/graphit-regular.woff);
+}
+@font-face {
+    font-family: melody;
+    src: url(../../asset/BLMelody-Light.woff2);
+}
+
 body{
     background: $very-light-color !important;
 }

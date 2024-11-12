@@ -41,15 +41,12 @@ const Companies = () => {
             <th className="border-0" scope="col"></th>
             <th scope="col">Name</th>
             <th scope="col">CUMULATED INVESTMENT</th>
-            <th></th>
             <th scope="col">CURRENT VALUATION </th>
-            <th></th>
-            <th></th>
             <th scope="col"></th>
-            <td
-              style={{ width: "50px", aspectRatio: "1/1" }}
+            <th
+              style={{  aspectRatio: "1/1" }}
               className="border-0"
-            ></td>
+            ></th>
           </tr>
         </thead>
         <tbody>
@@ -71,15 +68,12 @@ const Companies = () => {
                 </td>
 
                 <td className="text-uppercase ">{val?.name}</td>
-                {/* <td></td> */}
                 <Invest id={val?._id} />
-                <td></td>
                 <td>
                   {currencyFormatter(val?.dealSummary?.currentValuation)}
                 </td>
-                <td></td>
-                <td className="position-relative">
-                 <div className="position-absolute create-deal-btn"> <button
+                <td className="">
+                 <div className=" create-deal-btn"> <button
                     className="btn-red"
                     onClick={() => {
                       setIsDeal(!isDeal);
@@ -90,7 +84,7 @@ const Companies = () => {
                   </button>
                   </div>
                 </td>
-                <td className="text-end position-relative" style={{zIndex:"5"}}>
+                <td className="text-end ">
                 <div className="d-flex gap-4" style={{width:"50px",aspectRatio:"1/1"}}>
                   <button
                     onClick={() => navigate("new-company", { state: val?._id })}
@@ -104,13 +98,12 @@ const Companies = () => {
                   <div className="d-flex gap-4" style={{width:"50px",aspectRatio:"1/1"}}>
                     <button
                       onClick={() => hanndleDelete(val?._id)}
-                      className="btn text-danger bg-very-light-gray w-100 h-100 rounded-circle"
+                      className="btn text-danger bg-very-light-gray  w-100 h-100 rounded-circle"
                     >
                       <FaTrashAlt size={20} />
                     </button>
                   </div>
                 </td>
-                {/* <td style={{ aspectRatio: "1/1" }}></td> */}
               </tr>
             ))}
         </tbody>

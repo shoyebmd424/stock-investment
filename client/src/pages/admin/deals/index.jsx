@@ -66,12 +66,12 @@ const Deals = () => {
         <thead className="thead-dark">
           <tr>
             <th
-              scope="col text-uppercase "
+              scope="col  "
               style={{ aspectRatio: "1/1" }}
               className="border-0"
             ></th>
             <th
-              scope="col text-uppercase "
+              scope="col "
               onClick={() => handleSortByCompanyName()}
             >
               COMPANY
@@ -81,13 +81,13 @@ const Deals = () => {
                 <MdOutlineArrowDropDown size={30} />
               )}
             </th>
-            <th scope="col text-uppercase ">Investor </th>
-            <th scope="col text-uppercase "> INVESTMENT DATE</th>
-            <th scope="col text-uppercase "> INVESTMENT</th>
-            <th scope="col text-uppercase ">NET PROFIT(LOSS)</th>
-            <th scope="col text-uppercase ">NET MOIC</th>
-            <th scope="col text-uppercase ">NET IRR </th>
-            <th scope="col text-uppercase ">Current Shareholding(%) </th>
+            <th scope="col ">Investor </th>
+            <th scope="col "> INVESTMENT DATE</th>
+            <th scope="col "> INVESTMENT</th>
+            <th scope="col ">NET PROFIT(LOSS)</th>
+            <th scope="col ">NET MOIC</th>
+            <th scope="col ">NET IRR </th>
+            <th scope="col ">Current Shareholding(%) </th>
             <th
               style={{ width: "60px", aspectRatio: "1/1" }}
               className="border-0"
