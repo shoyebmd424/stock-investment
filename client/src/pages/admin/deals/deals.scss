@@ -12,10 +12,11 @@
 
 table tr>th{
     border: none;
+    width: 11%;
 }
 table tr td{
       padding: 10px;
-      width: 11.11%;
+      width:11%;
     background-color: #fff;
     border-bottom: 2px solid $dark-orange;
     border-top: 2px solid $dark-orange;
@@ -25,16 +26,21 @@ table tr td{
     background-color: #fff; 
     border: 2px solid $dark-orange; 
     border-radius:50% 0 0 50%;
-    width: 10%;
+    width:6%;
     border-right: 0;
   }
   
   table tr>:last-child{
     border-radius:0 50% 50% 0;
-    width: 10%;
+    width:6%;
     border: 2px solid $dark-orange;
     border-left: 0;
   }
-
+.d-float{
+  top:20%;
+  bottom:20%;
+  right: -30%;
+  
+}
  
 }

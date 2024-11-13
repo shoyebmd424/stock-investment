@@ -87,17 +87,14 @@ const Deals = () => {
             <th scope="col ">NET PROFIT(LOSS)</th>
             <th scope="col ">NET MOIC</th>
             <th scope="col ">NET IRR </th>
-            <th scope="col ">Current Shareholding(%) </th>
-            <th
-              style={{ width: "60px", aspectRatio: "1/1" }}
-              className="border-0"
-            ></th>
+            <th scope="col "  className="border-0">Current Shareholding(%) </th>
+            <th style={{aspectRatio:"1/1"}} className="border-0"></th>
           </tr>
         </thead>
         <tbody>
           {deals?.map((val, key) =>
             val?.investors?.map((v, i) => (
-              <tr key={key} className="p-3 ">
+              <tr key={key} className="">
                 <td>
                   <div
                     onClick={() => navigate("/admin/companies/new-company", { state: val?.companyId })}
@@ -149,7 +146,7 @@ const GetCompany = ({ id }) => {
       <td>
         <div
           onClick={() => navigate("about", { state: company?._id })}
-          className=" ms-3"
+          className=""
           style={{ aspectRatio: "1/1" }}
         >
           <img
@@ -247,8 +244,8 @@ const GetInvest = ({ deal, investor, investDate, companyId }) => {
       <td>{profit}</td>
       <td> {moic && moic?.toString()?.substring(0, 4) + "x"}</td>
       <td>{irr?.toFixed(2)}</td>
-      <td style={{ aspectRatio: "1/1" }} className="pe-3">
-        <div className="d-flex field " ref={editRef}>
+      <td  className=" position-relative text-end">
+        <div className="d-flex field m-auto  position-absolute d-float" ref={editRef}>
           <input
             type="text"
             className="input-field py-2 "
@@ -257,6 +254,7 @@ const GetInvest = ({ deal, investor, investDate, companyId }) => {
           />
         </div>
       </td>
+      <td  style={{ aspectRatio: "1/1" }}></td>
     </>
   );
 };
