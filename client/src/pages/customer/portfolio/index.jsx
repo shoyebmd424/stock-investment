@@ -123,18 +123,18 @@ const Portfolio = () => {
   return (
     <>
       {/* overview */}
-      <div className="">
+      <div className="overview">
         <div className="container w-100 pe-0">
           <div className="row">
             <div className="row row-cols-3 pe-0">
               {fieldData?.map((val, index) => (
-                <div key={index} className="px-0">
+                <div key={index} className="px-0 ">
                   <div
-                    className={`d-flex px-4 py-3 border border-2 mb-3 ${
+                    className={`d-flex px-4 py-3 border border-2 box mb-3 ${
                       index % 3 !== 0 && "mx-3 me-0"
                     } rounded-1 border-dark bg-white  justify-content-between`}
                   >
-                    <div className="d-flex flex-column gap-2 justify-content-between">
+                    <div className="d-flex flex-column  justify-content-between">
                       <span className="text-muted small fw-bold">{val?.name}</span>
                       <span className="fw-bold p-txt fs-5 ">{val?.qty}</span>
                     </div>
