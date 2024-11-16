@@ -30,7 +30,12 @@ jobs:
 
       - name: Restart PM2 and Nginx
         run: |
-            pm2 stop all
-            pm2 start all
-            pm2 save
-            sudo service nginx restart
+          cd /var/www/website/_work/stock-investment/stock-investment
+          if pm2 list | grep -q "online"; then
+              pm2 stop all
+              pm2 start all
+          else
+             pm2 start npm --name "mywebsite" -- run start
+          fi
+          pm2 save
+          sudo service nginx restart
