@@ -30,15 +30,7 @@ jobs:
 
       - name: Restart PM2 and Nginx
         run: |
-          if pm2 list | grep -q "online"; then
-            echo "Stopping all PM2 processes..."
             pm2 stop all
-          else
-            echo "No running PM2 processes to stop."
-          fi
-          echo "Starting all PM2 processes..."
-          pm2 start all
-          pm2 save
-          echo "Restarting Nginx..."
-          sudo service nginx restart
-        shell: bash
+            pm2 start all
+            pm2 save
+            sudo service nginx restart
