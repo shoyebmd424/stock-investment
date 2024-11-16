@@ -30,8 +30,7 @@ jobs:
 
       - name: Restart PM2 and Nginx
         run: |
-            cd /var/www/website/_work/stock-investment/stock-investment
-            pm2 stop all     
+            pm2 stop all
             pm2 start all
             pm2 save
             sudo service nginx restart
