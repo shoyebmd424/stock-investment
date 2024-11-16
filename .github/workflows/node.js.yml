@@ -1,35 +1,39 @@
 name: Node.js CI
 
 on:
-    push:
-        branches: [main]
-    pull_request:
-        branches: [main]
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
-    build:
-        runs-on: self-hosted
+  build:
+    runs-on: self-hosted
 
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v2
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-            - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v1
-              with:
-                  node-version: '20' 
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
 
-            - name: Install dependencies and build
-              run: |
-                  npm i
-                  cd client
-                  npm i
-                  npm run build
-                  cd ..
+      - name: Install dependencies and build
+        run: |
+          npm ci
+          cd client
+          npm ci
+          npm run build
+          cd ..
+        shell: bash
 
-            - name: Restart PM2 and Nginx
-              run: |
-                  pm2 stop all
-                  pm2 start all
-                  pm2 save
-                  sudo service nginx restart
+      - name: Restart PM2 and Nginx
+        run: |
+          if pm2 list | grep -q "online"; then
+            pm2 stop all
+          fi
+          pm2 start all
+          pm2 save
+          sudo service nginx restart
+        shell: bash
